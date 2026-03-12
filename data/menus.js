@@ -98,22 +98,22 @@ const ITEMS_BASE = {
 
   /* ── Productos exclusivos de ciertas sucursales ─────────────── */
 
-  tacoCabeza: {
-    id: 'taco-cabeza',
-    nombre: 'Taco de Cabeza',
-    descripcion: 'Especialidad de la casa. Carne de cabeza de res con sazón único.',
-    precio: 25,
+  promoLunes: {
+    id: 'promoLunes',
+    nombre: 'Promoción Tacos y Bebida',
+    descripcion: 'Tres tacos y una Bebida.',
+    precio: 88,
     imagen: 'img/menu/taco-cabeza.jpg',
     categoria: 'tacos',
     badge: '🏆 Especial',
     enCarrito: true,
   },
 
-  birria: {
-    id: 'birria',
-    nombre: 'Taco de Birria',
-    descripcion: 'Birria estilo Jalisco, consomé incluido. Delicia 100% local.',
-    precio: 28,
+  promoMartes1: {
+    id: 'promoMartes1',
+    nombre: 'Cuatro tacos',
+    descripcion: 'Orden de 4 tacos',
+    precio: 84,
     imagen: 'img/menu/birria.jpg',
     categoria: 'tacos',
     badge: '🌶️ Picante',
@@ -153,42 +153,15 @@ const MENUS_DATA = {
   /* ── Las Águilas ────────────────────────────────────────────── */
   aguilas: [
     ITEMS_BASE.tacoBarbacoa,
-    ITEMS_BASE.quesataco,
-    ITEMS_BASE.birria,
-    ITEMS_BASE.ordenEspecial,
-    ITEMS_BASE.consomeChico,
-    ITEMS_BASE.consomeGrande,
-    ITEMS_BASE.aguaSabor,
   ],
 
   /* ── La Estancia ────────────────────────────────────────────── */
   estancia: [
     ITEMS_BASE.tacoBarbacoa,
-    ITEMS_BASE.tacoCabeza,
-    ITEMS_BASE.ordenEspecial,
-    ITEMS_BASE.consomeChico,
-    ITEMS_BASE.consomeGrande,
-    ITEMS_BASE.aguaSabor,
   ],
 
   /* ── Zona Centro Médico ─────────────────────────────────────── */
   centromedico: [
     ITEMS_BASE.tacoBarbacoa,
-    ITEMS_BASE.quesataco,
-    ITEMS_BASE.ordenEspecial,
-    ITEMS_BASE.consomeChico,
-    ITEMS_BASE.consomeGrande,
-    ITEMS_BASE.aguaSabor,
-    {
-      /* Producto exclusivo de esta sucursal — definido inline */
-      id: 'combo-medico',
-      nombre: 'Combo Centro Médico',
-      descripcion: '2 tacos + consomé chico + agua. El favorito de la zona.',
-      precio: 60,
-      imagen: 'img/menu/combo-medico.jpg',
-      categoria: 'paquetes',
-      badge: '🏥 Exclusivo',
-      enCarrito: false,   // solo info, sin carrito
-    },
   ],
 };

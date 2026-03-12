@@ -25,60 +25,36 @@
 /* ── Promos base reutilizables ──────────────────────────────────── */
 const PROMOS_BASE = {
 
-  dosX1Tacos: {
-    productoId: 'taco-barbacoa',   // ← producto que se agrega al carrito
+  promoLonche: {
+    productoId: 'td',   // ← producto que se agrega al carrito
     icono: '🌮',
-    titulo: '2×1 en Tacos',
-    descripcion: 'Compra un taco y llévate otro de cortesía. ¡Sin límite de piezas!',
-    disclaimer: '*Válido solo en los primeros 50 clientes por sucursal.',
+    titulo: 'Taco y Lonche',
+    descripcion: 'Un taco y un lonche con queso a precio especial de 84 pesos',
+    disclaimer: '*Sólo para Barbacoa; taco sin queso.',
   },
 
-  bebidaGratis: {
-    productoId: 'agua-sabor',
+  promoAgua: {
+    productoId: 'td',
     icono: '🥤',
-    titulo: 'Bebida Gratis',
-    descripcion: 'Con cualquier orden de 3 tacos o más, tu agua de sabor es cortesía.',
-    disclaimer: '*Agua fresca del día (jamaica, horchata o tamarindo).',
+    titulo: 'Taco y Bebida',
+    descripcion: 'Tres tacos y una bebida por 84 pesos.',
+    disclaimer: '*Agua fresca de medio litro o refresco.',
   },
 
-  tacoExtraMaciza: {
-    productoId: 'taco-barbacoa',
+  promoTacos: {
+    productoId: 'promoMartes1',
     icono: '🌯',
-    titulo: 'Taco Extra de Maciza',
-    descripcion: 'Pide una orden y llévate un taco extra de maciza sin costo.',
-    disclaimer: '*Aplica solo en sucursales participantes.',
+    titulo: 'Orden 4 Tacos',
+    descripcion: 'Cuatro tacos al gusto',
+    disclaimer: '*Sólo para Barbacoa; sin queso.',
   },
 
-  ordenChef: {
-    productoId: 'orden-especial',
+  promoBistek: {
+    productoId: 'tk',
     icono: '🔥',
-    titulo: 'Orden Especial del Chef',
-    descripcion: '5 tacos + consomé chico + agua de sabor por $120.',
-    disclaimer: '*Precio especial solo para esta orden completa.',
-  },
-
-  consomeDosX1: {
-    productoId: 'consome-chico',
-    icono: '🫙',
-    titulo: 'Consomé 2×1',
-    descripcion: 'Dos consomés al precio de uno. El caldo que cura todo.',
-    disclaimer: '*Aplica para consomé chico. Todas las sucursales.',
-  },
-
-  quesatacosDia: {
-    productoId: 'quesataco',
-    icono: '🧀',
-    titulo: 'Jueves de Quesatacos',
-    descripcion: '3 quesatacos al precio de 2. Queso Oaxaca fundido y barbacoa.',
-    disclaimer: '*Válido de 7am a 1pm o hasta agotar existencias.',
-  },
-
-  viernesCarnivoro: {
-    productoId: 'paquete-familiar',
-    icono: '🎉',
-    titulo: 'Viernes Carnívoro',
-    descripcion: 'Kilo de barbacoa para llevar a precio especial.',
-    disclaimer: '*Pedido anticipado recomendado. Hasta agotar.',
+    titulo: 'Orden 3 de Bistek',
+    descripcion: 'Tres tacos de bistek.',
+    disclaimer: '*Sin queso.',
   },
 };
 
@@ -90,13 +66,13 @@ const PROMOCIONES_DATA = {
   /* ── Arboledas ─────────────────────────────────────────────── */
   arboledas: {
     0: null,
-    1: PROMOS_BASE.dosX1Tacos,
-    2: [PROMOS_BASE.bebidaGratis,
-        PROMOS_BASE.tacoExtraMaciza],
-    3: [PROMOS_BASE.ordenChef,
-        PROMOS_BASE.consomeDosX1],
-    4: PROMOS_BASE.quesatacosDia,
-    5: PROMOS_BASE.viernesCarnivoro,
+    1: PROMOS_BASE.promoAgua,
+    2: [PROMOS_BASE.promoLonche,
+        PROMOS_BASE.promoTacos],
+    3: [PROMOS_BASE.promoLonche,
+        PROMOS_BASE.promoTacos],
+    4: PROMOS_BASE.promoAgua,
+    5: PROMOS_BASE.promoBistek,
     6: null,
   },
 
