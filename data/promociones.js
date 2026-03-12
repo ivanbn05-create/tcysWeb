@@ -79,49 +79,33 @@ const PROMOCIONES_DATA = {
   /* ── Las Águilas ────────────────────────────────────────────── */
   aguilas: {
     0: null,
-    1: PROMOS_BASE.bebidaGratis,
-    2: [PROMOS_BASE.dosX1Tacos, PROMOS_BASE.consomeDosX1],
-    3: PROMOS_BASE.ordenChef,
-    4: {
-      /* Sin productoId: no hay carrito en esta sucursal, pero se puede añadir si se habilita */
-      icono: '🌮',
-      titulo: 'Jueves de Birria',
-      descripcion: '2 tacos de birria + consomé por $65. Exclusivo de Las Águilas.',
-      disclaimer: '*Solo en sucursal Las Águilas. Hasta agotar existencias.',
-    },
-    5: PROMOS_BASE.viernesCarnivoro,
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
     6: null,
   },
 
   /* ── La Estancia ────────────────────────────────────────────── */
   estancia: {
     0: null,
-    1: PROMOS_BASE.consomeDosX1,
-    2: PROMOS_BASE.dosX1Tacos,
-    3: [PROMOS_BASE.ordenChef, PROMOS_BASE.bebidaGratis],
-    4: PROMOS_BASE.quesatacosDia,
-    5: {
-      icono: '👨‍👩‍👧',
-      titulo: 'Viernes Familiar',
-      descripcion: 'Paquete: 8 tacos + consomé grande + 2 aguas por $180.',
-      disclaimer: '*Solo en La Estancia. No aplica con otras promociones.',
-    },
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
     6: null,
   },
 
   /* ── Zona Centro Médico ─────────────────────────────────────── */
   centromedico: {
-    0: null,
-    1: PROMOS_BASE.dosX1Tacos,
-    2: PROMOS_BASE.bebidaGratis,
-    3: [PROMOS_BASE.consomeDosX1, PROMOS_BASE.tacoExtraMaciza],
-    4: {
-      icono: '🏥',
-      titulo: 'Combo Salud',
-      descripcion: 'Consomé grande + 2 tacos + agua. La cura de la semana por $70.',
-      disclaimer: '*Exclusivo Centro Médico. Lunes a viernes.',
-    },
-    5: PROMOS_BASE.viernesCarnivoro,
+   0: null,
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
     6: null,
   },
 };

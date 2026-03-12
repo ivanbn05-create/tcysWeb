@@ -90,6 +90,10 @@
         <span class="hamburger"></span>
       </button>
 
+      <!-- ══════════════════════════════════════════════════════════
+     Reemplaza el bloque <nav id="nav-menu"> en index.html
+     Cambios: "Pedir" → "Cortes" (externo) + "Contacto" (WA dinámico)
+══════════════════════════════════════════════════════════ -->
       <nav id="nav-menu" class="nav-menu" role="navigation"
            aria-label="Navegación principal">
         <ul>
@@ -97,13 +101,31 @@
           <li><a href="#seccion-menu">Menú</a></li>
           <li><a href="#seccion-sucursales">Sucursales</a></li>
           <li><a href="#seccion-testimonios">Opiniones</a></li>
+
+          <!-- Botón Cortes → URL externa (cambiar por la real) -->
           <li>
             <a href="https://TU-TIENDA-DE-CORTES.COM"
                class="nav-cta"
                target="_blank"
                rel="noopener noreferrer"
                aria-label="Visitar tienda de cortes">
-              <i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i> Cortes
+              <i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i>
+              Cortes
+            </a>
+          </li>
+
+          <!-- Botón Contacto → WhatsApp de la sucursal activa.
+               El href se actualiza automáticamente en app.js
+               cada vez que el usuario cambia de sucursal.         -->
+          <li>
+            <a id="nav-wa-link"
+               href="https://wa.me/5213323324878"
+               class="nav-wa"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Contactar por WhatsApp">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+              <span class="nav-wa-texto">Contacto</span>
             </a>
           </li>
         </ul>

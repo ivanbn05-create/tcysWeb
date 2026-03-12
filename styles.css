@@ -1347,3 +1347,184 @@ body::after {
   }
   html { scroll-behavior: auto; }
 }
+
+/* ================================================================
+   AÑADIR AL FINAL DE styles.css
+   Nuevos estilos: stepper de cantidad en tarjetas + botón nav WA
+================================================================ */
+
+/* ── BOTÓN WHATSAPP EN NAVBAR ─────────────────────────────────── */
+.nav-wa {
+  display: inline-flex !important;
+  align-items: center;
+  gap: .4rem;
+  color: #25D366 !important;
+  background: rgba(37,211,102,.08);
+  border: 1px solid rgba(37,211,102,.28) !important;
+  padding: .45rem 1.1rem;
+  border-radius: var(--r-sm);
+  font-family: var(--ff-heading);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background var(--ease), color var(--ease),
+              border-color var(--ease), transform var(--ease) !important;
+}
+.nav-wa::after { display: none !important; }
+.nav-wa:hover {
+  background: #25D366 !important;
+  border-color: #25D366 !important;
+  color: var(--negro) !important;
+  transform: translateY(-1px);
+}
+.nav-wa .fa-whatsapp { font-size: 1rem; }
+
+/* En móvil el texto se oculta, solo el ícono */
+@media (max-width: 640px) {
+  .nav-wa-texto { display: none; }
+  .nav-wa { padding: .45rem .75rem; }
+}
+
+/* ── STEPPER DE CANTIDAD EN TARJETA DE MENÚ ───────────────────── */
+
+/*
+  Estructura:
+    .card-accion                → contenedor toggle
+      .btn-card-agregar         → estado por defecto
+      .card-stepper             → estado activo (oculto por defecto)
+        .stepper-btn.stepper-menos
+        .stepper-qty
+        .stepper-btn.stepper-mas
+        .stepper-btn.stepper-ok
+*/
+
+.card-accion {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Botón "Agregar" (estado inicial) ────────── */
+.btn-card-agregar {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-family: var(--ff-heading);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ambar);
+  background: rgba(232,160,22,.1);
+  border: 1px solid rgba(232,160,22,.24);
+  padding: .42rem .9rem;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background var(--ease), color var(--ease),
+              border-color var(--ease), transform var(--ease),
+              opacity var(--ease);
+  white-space: nowrap;
+}
+.btn-card-agregar:hover {
+  background: var(--ambar);
+  border-color: var(--ambar);
+  color: var(--negro);
+  transform: scale(1.04);
+}
+
+/* ── Stepper (estado activo) ─────────────────── */
+.card-stepper {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(.85) translateX(6px);
+  position: absolute;
+  right: 0;
+  transition: opacity var(--ease), transform var(--ease);
+}
+
+/* Cuando .card-accion tiene clase .activo ─────── */
+.card-accion.activo .btn-card-agregar {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(.85) translateX(-6px);
+  position: absolute;
+  left: 0;
+}
+
+.card-accion.activo .card-stepper {
+  opacity: 1;
+  pointer-events: all;
+  transform: scale(1) translateX(0);
+  position: relative;
+}
+
+/* ── Botones del stepper ─────────────────────── */
+.stepper-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.07);
+  color: var(--crema);
+  transition: background var(--ease), color var(--ease),
+              border-color var(--ease), transform var(--ease);
+  flex-shrink: 0;
+}
+.stepper-btn:hover {
+  background: rgba(255,255,255,.18);
+  transform: scale(1.08);
+}
+.stepper-btn:active { transform: scale(.96); }
+
+/* Botón menos */
+.stepper-menos { font-size: 1.2rem; }
+
+/* Botón confirmar */
+.stepper-ok {
+  background: rgba(232,160,22,.14);
+  border-color: rgba(232,160,22,.3);
+  color: var(--ambar);
+  font-size: .82rem;
+}
+.stepper-ok:hover {
+  background: var(--ambar);
+  border-color: var(--ambar);
+  color: var(--negro);
+}
+/* Estado "done" — feedback tras confirmar */
+.stepper-ok--done {
+  background: rgba(74,222,128,.18) !important;
+  border-color: rgba(74,222,128,.45) !important;
+  color: #4ade80 !important;
+}
+
+/* ── Contador de cantidad ────────────────────── */
+.stepper-qty {
+  font-family: var(--ff-heading);
+  font-size: .92rem;
+  font-weight: 700;
+  min-width: 22px;
+  text-align: center;
+  color: var(--crema);
+  line-height: 1;
+  user-select: none;
+}
+
+/* ── Reducción de movimiento ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .btn-card-agregar,
+  .card-stepper,
+  .stepper-btn { transition: none; }
+}

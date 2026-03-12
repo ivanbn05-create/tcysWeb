@@ -61,7 +61,7 @@ function _cargarSucursal(sucursalId) {
     return _cargarSucursal(SUCURSAL_DEFAULT);
   }
 
-  App.sucursalActualId = sucursalId;
+   App.sucursalActualId = sucursalId;
   App.sucursalActual   = sucursal;
 
   // 1. SEO
@@ -70,28 +70,31 @@ function _cargarSucursal(sucursalId) {
   // 2. Hero
   _renderHero(sucursal);
 
-  // 3. Branch switcher (pestañas)
+  // 3. Navbar — WhatsApp dinámico  ← NUEVO
+  _actualizarNavWA(sucursal);
+
+  // 4. Branch switcher
   _actualizarSwitcher(sucursalId);
 
-  // 4. Promociones
+  // 5. Promociones
   renderPromos(sucursalId);
 
-  // 5. Menú
+  // 6. Menú
   renderMenu(sucursalId, sucursal.tieneCarrito);
 
-  // 6. Sucursales
+  // 7. Sucursales
   renderSucursales(sucursalId);
 
-  // 7. Mapa
+  // 8. Mapa
   renderMapa(sucursalId);
 
-  // 8. Carrito — mostrar/ocultar según sucursal
+  // 9. Carrito — mostrar/ocultar
   _toggleCarritoUI(sucursal.tieneCarrito);
 
-  // 9. Scroll al top con transición suave
+  // 10. Scroll top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // 10. Observar elementos para scroll reveal
+  // 11. Scroll reveal
   setTimeout(() => _observarElementos(document.body), 100);
 }
 
@@ -332,3 +335,26 @@ document.addEventListener('DOMContentLoaded', () => {
   history.replaceState({ sucursalId: sucursalInicial }, '', window.location.href);
   _cargarSucursal(sucursalInicial);
 });
+
+/* ── NUEVA FUNCIÓN — pegar en app.js ────────────────────────────── */
+
+/** Actualiza el enlace WhatsApp del navbar con la sucursal activa. */
+function _actualizarNavWA(sucursal) {
+  const link = document.getElementById('nav-wa-link');
+  if (!link) return;
+  const msg = encodeURIComponent(
+    `Hola, quisiera información sobre Los Tocayos ${sucursal.nombre}`
+  );
+  link.href = `https://wa.me/${sucursal.whatsapp}?text=${msg}`;
+  link.setAttribute('aria-label', `Contactar ${sucursal.nombre} por WhatsApp`);
+}
+
+/* ── FUNCIÓN MODIFICADA — reemplaza _cargarSucursal en app.js ───── */
+
+function _cargarSucursal(sucursalId) {
+  const sucursal = SUCURSALES_DATA[sucursalId];
+  if (!sucursal) {
+    console.warn('[App] Sucursal no encontrada:', sucursalId, '→ redirigiendo a default');
+    return _cargarSucursal(SUCURSAL_DEFAULT);
+  }
+}

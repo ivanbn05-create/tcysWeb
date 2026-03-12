@@ -4,150 +4,78 @@
  * Menús por sucursal.
  * ================================================================
  * ✏️  CÓMO EDITAR:
- *   - Cada sucursal tiene su propio array de productos
- *   - Para compartir un producto entre sucursales, define el
- *     objeto en ITEMS_BASE y referéncialo en cada sucursal
- *   - imagen: ruta relativa desde la raíz del proyecto
- *   - precio: número sin símbolo ($)
- *   - badge: texto del chip (opcional, ej. "⭐ Estrella", "🆕 Nuevo")
- *   - enCarrito: true = aparece en el carrito de Arboledas
+ *   - visible: true  → el producto aparece en el menú del sitio.
+ *   - visible: false → el producto NO se muestra en el menú, pero
+ *                      sigue existiendo para que las promociones
+ *                      puedan referenciar su `id` con `productoId`.
+ *                      Úsalo para productos de promo-exclusiva.
+ *   - enCarrito: true  → muestra el stepper de cantidad (solo en
+ *                         sucursales con tieneCarrito: true).
+ *   - enCarrito: false → informativo, sin opción de agregar.
+ *   - precio: número sin símbolo $
+ *   - badge: texto del chip (null si no quieres ninguno)
  * ================================================================
  */
 
 'use strict';
 
-/* ── Productos base reutilizables ──────────────────────────────── */
+/* ── Catálogo base reutilizable ─────────────────────────────────── */
 const ITEMS_BASE = {
 
   tacoBarbacoa: {
     id: 'td',
     nombre: 'Taco de Barbacoa',
-    descripcion: 'Carne deshebrada, consomé, cilantro y cebolla. El clásico.',
+    descripcion: 'Carne deshebrada, cilantro y cebolla. El clásico que nunca falla.',
     precio: 23,
     imagen: '../img/tacosdorados.jpeg',
     categoria: 'tacos',
     badge: '⭐ Estrella',
+    visible: true,       // ← siempre visible en el menú
     enCarrito: true,
   },
 
-  tacoBistek: {
-    id: 'tk',
-    nombre: 'Taco de Bistek',
-    descripcion: 'Bistek a la plancha en tortilla original y copia.',
-    precio: 30,
-    imagen: '../img/bistek.jpeg',
-    categoria: 'tacos',
+  ordenEspecial: {
+    id: 'orden-especial',
+    nombre: 'Orden Especial',
+    descripcion: '3 tacos + consomé + agua de sabor. La combinación perfecta.',
+    precio: 75,
+    imagen: 'img/menu/orden-especial.jpg',
+    categoria: 'ordenes',
     badge: null,
+    visible: false,
     enCarrito: true,
   },
 
-  tacoQueso: {
-    id: 'tbq',
-    nombre: 'Taco con Queso',
-    descripcion: 'Tortilla con nuestra mezcla de quesos gratinado y barbacoa.',
-    precio: 30,
-    imagen: '../img/tacoconqueso.jpeg',
-    categoria: 'tacos',
-    badge: null,
-    enCarrito: true,
-  },
-
-  consomeVaso: {
-    id: 'co',
-    nombre: 'Consomé 8 oz',
-    descripcion: 'Caldoito de barbacoa bien caliente.',
-    precio: 12,
-    imagen: '../img/mainlogo.jpeg',
-    categoria: 'consomes',
-    badge: null,
-    enCarrito: true,
-  },
-
-   consomeMedio: {
-    id: 'com',
-    nombre: 'Consomé Medio Litro',
-    descripcion: 'Caldoito de barbacoa, más grande, bien caliente.',
-    precio: 20,
-    imagen: '../img/mainlogo.jpeg',
-    categoria: 'consomes',
-    badge: null,
-    enCarrito: true,
-  },
-
-  consomeLitro: {
-    id: 'col',
-    nombre: 'Consomé de Litro',
-    descripcion: 'El tamaño familiar. Ideal para compartir.',
-    precio: 30,
-    imagen: '../img/mainlogo.jpeg',
-    categoria: 'consomes',
-    badge: null,
-    enCarrito: true,
-  },
-
-  aguaFresca: {
-    id: 'aguaFresca',
-    nombre: 'Aguas Frescas',
-    descripcion: 'Horchata blanca, horchata rosa y jamaica. Natural, sin colorantes. De cada día',
-    precio: 28,
-    imagen: '../img/aguasfrescas.jpeg',
-    categoria: 'bebidas',
-    badge: null,
-    enCarrito: true,
-  },
-
-  /* ── Productos exclusivos de ciertas sucursales ─────────────── */
-
-  promoLunes: {
-    id: 'promoLunes',
-    nombre: 'Promoción Tacos y Bebida',
-    descripcion: 'Tres tacos y una Bebida.',
-    precio: 88,
-    imagen: 'img/menu/taco-cabeza.jpg',
-    categoria: 'tacos',
-    badge: '🏆 Especial',
-    enCarrito: true,
-  },
-
-  promoMartes1: {
-    id: 'promoMartes1',
-    nombre: 'Cuatro tacos',
-    descripcion: 'Orden de 4 tacos',
-    precio: 84,
-    imagen: 'img/menu/birria.jpg',
-    categoria: 'tacos',
-    badge: '🌶️ Picante',
-    enCarrito: true,
-  },
-
-  paqueteFamiliar: {
-    id: 'paquete-familiar',
-    nombre: 'Paquete Familiar',
-    descripcion: '12 tacos + consomé grande + 3 aguas de sabor.',
-    precio: 280,
-    imagen: 'img/menu/paquete-familiar.jpg',
-    categoria: 'paquetes',
-    badge: '👨‍👩‍👧 Familiar',
-    enCarrito: true,
-  },
+  /* ─────────────────────────────────────────────────────────────
+   * EJEMPLO DE PRODUCTO PROMO-EXCLUSIVO:
+   * visible: false  →  no aparece en el menú del sitio
+   *                    pero las promociones pueden referenciar su id.
+   *
+   * promoTacosViernes: {
+   *   id: 'promo-tacos-viernes',
+   *   nombre: 'Promo Viernes Carnívoro',
+   *   descripcion: 'Kilo de barbacoa a precio especial.',
+   *   precio: 180,
+   *   imagen: 'img/menu/placeholder.jpg',
+   *   categoria: 'paquetes',
+   *   badge: null,
+   *   visible: false,   ← oculto en el menú, activo para promos
+   *   enCarrito: true,
+   * },
+   * ───────────────────────────────────────────────────────────── */
 };
 
 /* ================================================================
    MENÚS POR SUCURSAL
-   Cada sucursal tiene su propio arreglo de productos.
-   Puedes referenciar ITEMS_BASE o crear objetos nuevos inline.
+   Solo los productos con visible !== false se renderizan en HTML.
+   Los de visible: false siguen siendo válidos como productoId
+   en data/promociones.js.
 ================================================================ */
 const MENUS_DATA = {
 
-  /* ── Arboledas — menú completo ─────────────────────────────── */
+  /* ── Arboledas ─────────────────────────────────────────────── */
   arboledas: [
     ITEMS_BASE.tacoBarbacoa,
-    ITEMS_BASE.aguaFresca,
-    ITEMS_BASE.consomeVaso,
-    ITEMS_BASE.consomeMedio,
-    ITEMS_BASE.consomeLitro,
-    ITEMS_BASE.tacoBistek,
-    ITEMS_BASE.tacoQueso,
   ],
 
   /* ── Las Águilas ────────────────────────────────────────────── */
