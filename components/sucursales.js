@@ -1,0 +1,228 @@
+/**
+ * ================================================================
+ * LOS TOCAYOS — components/sucursales.js
+ * Renderiza la sección de sucursales y el botón de geolocalización.
+ * ================================================================
+ */
+
+'use strict';
+
+function _e(s) {
+  if (typeof s !== 'string') return String(s);
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+          .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+/** Renderiza todas las tarjetas de sucursales */
+function renderSucursales(sucursalActivaId) {
+  const seccion = document.getElementById('seccion-sucursales');
+  if (!seccion) return;
+
+  const tarjetas = SUCURSALES_ORDEN.map(id => {
+    const s = SUCURSALES_DATA[id];
+    const esActiva = id === sucursalActivaId;
+
+    return `
+      <article class="sucursal-card reveal ${esActiva ? 'sucursal-activa' : ''}"
+               role="listitem" data-sucursal-id="${_e(id)}">
+        <div class="sucursal-header">
+          <span class="sucursal-num" aria-hidden="true">0${SUCURSALES_ORDEN.indexOf(id) + 1}</span>
+          <div class="sucursal-status" aria-label="Estado de la sucursal">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">Verificando…</span>
+          </div>
+        </div>
+
+        ${esActiva ? '<div class="sucursal-activa-tag">📍 Viendo esta sucursal</div>' : ''}
+
+        <h3 class="sucursal-name">${_e(s.nombre)}</h3>
+        <address class="sucursal-addr">
+          <i class="fa-solid fa-map-pin" aria-hidden="true"></i>
+          ${_e(s.direccion)}
+        </address>
+        <a class="sucursal-tel" href="tel:+52${_e(s.telefono)}"
+           aria-label="Llamar a sucursal ${_e(s.nombre)}">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          ${_e(s.telefonoDisplay)}
+        </a>
+        <p class="sucursal-hours">
+          <i class="fa-regular fa-clock" aria-hidden="true"></i>
+          ${_e(s.horario.semana)} · ${_e(s.horario.finSemana)}
+        </p>
+
+        <div class="sucursal-actions">
+          <a class="btn btn-maps"
+             href="${_e(s.mapsUrl)}"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Cómo llegar a ${_e(s.nombre)}">
+            <i class="fa-solid fa-map" aria-hidden="true"></i> Cómo llegar
+          </a>
+          <a class="btn btn-whatsapp"
+             href="https://wa.me/${_e(s.whatsapp)}?text=${encodeURIComponent('Hola, quisiera información sobre Los Tocayos ' + s.nombre)}"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="WhatsApp ${_e(s.nombre)}">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp
+          </a>
+        </div>
+
+        ${!esActiva ? `
+        <button class="btn btn-ver-sucursal" data-goto="${_e(id)}"
+                aria-label="Ver contenido de sucursal ${_e(s.nombre)}">
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          Ver esta sucursal
+        </button>` : ''}
+      </article>`;
+  }).join('');
+
+  seccion.innerHTML = `
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">📍 Encuéntranos</span>
+        <h2 class="section-title">Nuestras Sucursales</h2>
+        <p class="section-sub">4 puntos en la Zona Metropolitana de Guadalajara</p>
+      </div>
+
+      <!-- Botón de geolocalización -->
+      <div class="nearest-wrapper reveal">
+        <button id="btn-nearest" class="btn btn-fire"
+                aria-label="Detectar mi sucursal más cercana">
+          <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
+          Encontrar mi sucursal más cercana
+        </button>
+        <div id="nearest-result" class="nearest-result"
+             role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="sucursales-grid" role="list">
+        ${tarjetas}
+      </div>
+    </div>`;
+
+  // Bind botones "Ver esta sucursal"
+  seccion.querySelectorAll('[data-goto]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      window.App?.navegarA(btn.dataset.goto);
+    });
+  });
+
+  // Bind botón de geolocalización
+  document.getElementById('btn-nearest')
+    ?.addEventListener('click', iniciarGeolocalizacion);
+
+  // Actualizar estados abierto/cerrado
+  _actualizarEstados();
+
+  if (window.App?.reObservar) window.App.reObservar(seccion);
+}
+
+/** Actualiza los indicadores de abierto/cerrado según la hora */
+function _actualizarEstados() {
+  const HORARIO = { semana: { abre:7, cierra:15 }, finSemana: { abre:7, cierra:14 } };
+  const ahora = new Date();
+  const dia   = ahora.getDay();
+  const hora  = ahora.getHours() + ahora.getMinutes() / 60;
+  const h     = (dia === 0 || dia === 6) ? HORARIO.finSemana : HORARIO.semana;
+  const ok    = hora >= h.abre && hora < h.cierra;
+
+  document.querySelectorAll('.sucursal-status').forEach(el => {
+    const dot   = el.querySelector('.status-dot');
+    const label = el.querySelector('.status-label');
+    if (ok) {
+      el.className = 'sucursal-status open';
+      if (dot) dot.style.background = '';
+      if (label) label.textContent = 'Abierto ahora';
+      el.setAttribute('aria-label', 'Sucursal abierta');
+    } else {
+      el.className = 'sucursal-status closed';
+      if (dot) { dot.style.background = '#f87171'; dot.style.animation = 'none'; }
+      if (label) { label.textContent = 'Cerrado'; label.style.color = '#f87171'; }
+      el.setAttribute('aria-label', 'Sucursal cerrada');
+    }
+  });
+}
+
+/* ── Geolocalización ────────────────────────────────────────────── */
+function gradosARadianes(d) { return d * Math.PI / 180; }
+
+function haversine(la1, lo1, la2, lo2) {
+  const R = 6371, dLat = gradosARadianes(la2-la1), dLng = gradosARadianes(lo2-lo1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(gradosARadianes(la1))*Math.cos(gradosARadianes(la2))*Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function masСercana(lat, lng) {
+  let mejor = null, menor = Infinity;
+  SUCURSALES_ORDEN.forEach(id => {
+    const s = SUCURSALES_DATA[id];
+    const d = haversine(lat, lng, s.lat, s.lng);
+    if (d < menor) { menor = d; mejor = s; }
+  });
+  return { sucursal: mejor, distancia: menor };
+}
+
+function iniciarGeolocalizacion() {
+  const resultDiv = document.getElementById('nearest-result');
+  const btn       = document.getElementById('btn-nearest');
+  if (!resultDiv || !btn) return;
+
+  if (!('geolocation' in navigator)) {
+    resultDiv.innerHTML = '<p class="nearest-error">Tu navegador no soporta geolocalización.</p>';
+    return;
+  }
+
+  resultDiv.innerHTML = '<p class="nearest-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Detectando ubicación…</p>';
+  btn.disabled = true;
+
+  navigator.geolocation.getCurrentPosition(
+    ({ coords: { latitude: lat, longitude: lng } }) => {
+      btn.disabled = false;
+      const { sucursal, distancia } = masСercana(lat, lng);
+
+      // Debug en consola para verificar coordenadas
+      console.group('🌮 Los Tocayos — Geolocalización');
+      console.log('📍 Usuario:', lat, lng);
+      SUCURSALES_ORDEN.forEach(id => {
+        const s = SUCURSALES_DATA[id];
+        console.log(`  → ${s.nombre}:`, haversine(lat, lng, s.lat, s.lng).toFixed(2), 'km');
+      });
+      console.groupEnd();
+
+      // Mostrar resultado
+      resultDiv.innerHTML = `
+        <div class="nearest-card">
+          <span class="nearest-icon" aria-hidden="true">📍</span>
+          <div class="nearest-info">
+            <h4>${sucursal.nombre}</h4>
+            <p>${sucursal.direccion}</p>
+            <p class="nearest-dist">A ${distancia.toFixed(1)} km de ti</p>
+          </div>
+        </div>`;
+
+      // Highlight tarjeta
+      document.querySelectorAll('.sucursal-card').forEach(c => c.classList.remove('nearest-highlight'));
+      document.querySelector(`.sucursal-card[data-sucursal-id="${sucursal.id}"]`)
+              ?.classList.add('nearest-highlight');
+
+      // Ofrecer cambiar a esa sucursal si no es la activa
+      if (sucursal.id !== window.App?.sucursalActualId) {
+        const extra = document.createElement('div');
+        extra.className = 'nearest-cambiar';
+        extra.innerHTML = `
+          <p>Esta sucursal es tu más cercana.</p>
+          <button class="btn btn-primary btn-sm" id="btn-ir-cercana">
+            <i class="fa-solid fa-arrow-right"></i>
+            Ver ${sucursal.nombre}
+          </button>`;
+        resultDiv.appendChild(extra);
+        document.getElementById('btn-ir-cercana')
+          ?.addEventListener('click', () => window.App?.navegarA(sucursal.id));
+      }
+    },
+    (err) => {
+      btn.disabled = false;
+      const msgs = { 1:'Permiso denegado.', 2:'No se pudo determinar ubicación.', 3:'Tiempo agotado.' };
+      resultDiv.innerHTML = `<p class="nearest-error"><i class="fa-solid fa-circle-exclamation"></i> ${msgs[err.code] || 'Error al obtener ubicación.'}</p>`;
+    },
+    { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+  );
+}

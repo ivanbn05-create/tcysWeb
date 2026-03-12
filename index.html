@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <!-- ============================================================
+       LOS TOCAYOS — SPA Shell
+       Los metadatos SEO se actualizan dinámicamente por sucursal
+       vía app.js → _actualizarSEO()
+       ============================================================ -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- SEO base — app.js lo sobreescribe al cargar cada sucursal -->
+  <title>Los Tocayos | Tacos de Barbacoa — Guadalajara, Jalisco</title>
+  <meta name="description"
+        content="Los mejores tacos de barbacoa en Guadalajara. 4 sucursales en la ZMG: Arboledas, Las Águilas, La Estancia y Centro Médico." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Los Tocayos" />
+
+  <!-- Open Graph base -->
+  <meta property="og:type"        content="restaurant" />
+  <meta property="og:site_name"   content="Los Tocayos" />
+  <meta property="og:title"       content="Los Tocayos | Tacos de Barbacoa Guadalajara" />
+  <meta property="og:description" content="Barbacoa auténtica. 4 sucursales en la ZMG." />
+  <meta property="og:image"       content="https://www.lostocayos.mx/img/og-cover.jpg" />
+  <meta property="og:url"         content="https://www.lostocayos.mx/" />
+  <meta property="og:locale"      content="es_MX" />
+
+  <!-- Twitter Card base -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Los Tocayos | Tacos de Barbacoa" />
+  <meta name="twitter:description" content="La barbacoa más rica de Guadalajara. 4 sucursales en la ZMG." />
+  <meta name="twitter:image"       content="https://www.lostocayos.mx/img/og-cover.jpg" />
+
+  <!-- Schema.org base — se reemplaza dinámicamente por sucursal -->
+  <script type="application/ld+json" id="schema-sucursal">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Los Tocayos",
+    "alternateName": "Los Tcys",
+    "url": "https://www.lostocayos.mx",
+    "description": "Tacos de barbacoa auténtica en la Zona Metropolitana de Guadalajara.",
+    "servesCuisine": "Mexicana",
+    "priceRange": "$"
+  }
+  </script>
+
+  <!-- Canonical — se actualiza dinámicamente -->
+  <link rel="canonical" href="https://www.lostocayos.mx/" />
+
+  <!-- Fuentes tipográficas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+        crossorigin="anonymous" />
+
+  <!-- Estilos del proyecto -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Favicon — reemplaza con tu icono real -->
+  <!-- <link rel="icon" type="image/png" href="img/favicon.png" /> -->
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════
+       NAVBAR — FIJA
+  ══════════════════════════════════════════════════════════ -->
+  <header class="navbar" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Los Tocayos — Inicio"
+         onclick="event.preventDefault(); window.App?.navegarA('arboledas')">
+        <span class="logo-main">LOS TOCAYOS</span>
+        <span class="logo-sub">BARBACOA AUTÉNTICA</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Abrir menú"
+              aria-expanded="false" aria-controls="nav-menu">
+        <span class="hamburger"></span>
+      </button>
+
+      <nav id="nav-menu" class="nav-menu" role="navigation"
+           aria-label="Navegación principal">
+        <ul>
+          <li><a href="#seccion-promo">Promos</a></li>
+          <li><a href="#seccion-menu">Menú</a></li>
+          <li><a href="#seccion-sucursales">Sucursales</a></li>
+          <li><a href="#seccion-testimonios">Opiniones</a></li>
+          <li><a href="#seccion-sucursales" class="nav-cta">
+            <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> Pedir
+          </a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════════
+       BRANCH SWITCHER — Selector de sucursal (pestañas)
+       El contenido se genera dinámicamente desde SUCURSALES_DATA
+  ══════════════════════════════════════════════════════════ -->
+  <div class="branch-bar" role="navigation" aria-label="Seleccionar sucursal">
+    <div class="container">
+      <div id="branch-switcher" class="branch-switcher" role="tablist"
+           aria-label="Sucursales disponibles">
+
+        <!-- Las pestañas se generan por app.js → _renderSwitcher() -->
+        <button class="switcher-tab activa" role="tab" data-sucursal="arboledas"
+                aria-selected="true">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          Arboledas
+        </button>
+        <button class="switcher-tab" role="tab" data-sucursal="aguilas"
+                aria-selected="false">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          Las Águilas
+        </button>
+        <button class="switcher-tab" role="tab" data-sucursal="estancia"
+                aria-selected="false">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          La Estancia
+        </button>
+        <button class="switcher-tab" role="tab" data-sucursal="centromedico"
+                aria-selected="false">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          Centro Médico
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ══════════════════════════════════════════════════════════
+         HERO — Imagen de fondo y título dinámico
+         La imagen, nombre y subtítulo se actualizan por sucursal
+    ══════════════════════════════════════════════════════════ -->
+    <section id="seccion-hero" class="hero"
+             aria-label="Presentación Los Tocayos"
+             style="background-image: url('img/hero-arboledas.jpg')">
+
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <p class="hero-eyebrow" aria-hidden="true">🌮 Desde el corazón de Jalisco</p>
+
+        <h1 class="hero-title">
+          <span class="title-los">LOS</span>
+          <span class="title-tocayos">TOCAYOS</span>
+        </h1>
+
+        <!-- Nombre y subtítulo de sucursal — actualizado dinámicamente -->
+        <p class="hero-sucursal-label">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          Sucursal <span id="hero-sucursal-nombre">Arboledas</span>
+        </p>
+
+        <p class="hero-tagline">La barbacoa que te hace volver</p>
+        <p class="hero-sub">Auténtica, jugosa y preparada con amor desde el primer taco.</p>
+
+        <div class="hero-actions">
+          <a href="#seccion-menu" class="btn btn-primary">
+            <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+            Ver menú
+          </a>
+          <a href="#seccion-sucursales" class="btn btn-outline">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            Ver sucursales
+          </a>
+        </div>
+
+        <div class="hero-badges" aria-label="Características del negocio">
+          <span class="badge">
+            <i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i>
+            Barbacoa artesanal
+          </span>
+          <span class="badge">
+            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+            Lun–Dom 7am–3pm
+          </span>
+          <span class="badge">
+            <i class="fa-solid fa-map-pin" aria-hidden="true"></i>
+            4 sucursales en GDL
+          </span>
+        </div>
+      </div>
+
+      <div class="scroll-indicator" aria-hidden="true">
+        <span>scroll</span>
+        <div class="scroll-arrow-wrap">
+          <div class="scroll-arrow"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         SECCIÓN PROMO — Contenido inyectado por components/promo.js
+    ══════════════════════════════════════════════════════════ -->
+    <section id="seccion-promo" class="promo-section"
+             aria-label="Promoción del día">
+      <!-- JS inyecta aquí vía renderPromos() -->
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         SECCIÓN MENÚ — Contenido inyectado por components/menu.js
+    ══════════════════════════════════════════════════════════ -->
+    <section id="seccion-menu" class="menu-section"
+             aria-label="Nuestro menú">
+      <!-- JS inyecta aquí vía renderMenu() -->
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         SECCIÓN SUCURSALES — Inyectado por components/sucursales.js
+    ══════════════════════════════════════════════════════════ -->
+    <section id="seccion-sucursales" class="sucursales-section"
+             aria-label="Nuestras sucursales">
+      <!-- JS inyecta aquí vía renderSucursales() -->
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         SECCIÓN MAPA — Contenedor para Leaflet
+    ══════════════════════════════════════════════════════════ -->
+    <section class="map-section" aria-label="Mapa de sucursales">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-badge">🗺️ Mapa</span>
+          <h2 class="section-title">Estamos en toda la ZMG</h2>
+        </div>
+        <div class="map-wrapper">
+          <!-- Leaflet renderiza aquí vía components/mapa.js → renderMapa() -->
+          <div id="mapa-sucursales"
+               role="application"
+               aria-label="Mapa interactivo con las sucursales de Los Tocayos">
+          </div>
+          <div class="map-overlay-label" aria-hidden="true">
+            <i class="fa-solid fa-location-dot"></i>
+            Guadalajara, Jalisco · ZMG
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         TESTIMONIOS — Contenido estático (actualízalos aquí)
+         ✏️  EDITAR: nombre, texto y colonia de cada reseña
+    ══════════════════════════════════════════════════════════ -->
+    <section id="seccion-testimonios" class="testimonios-section"
+             aria-label="Opiniones de clientes">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-badge">💬 Lo que dicen</span>
+          <h2 class="section-title">Clientes que no mienten</h2>
+        </div>
+
+        <div class="testimonios-grid" role="list">
+
+          <blockquote class="testimonio-card reveal" role="listitem">
+            <div class="stars" aria-label="5 estrellas">★★★★★</div>
+            <p>"Los mejores tacos de barbacoa que he probado en toda Guadalajara.
+               El consomé es una bendición. Ya no puedo ir a ninguna otra taquería."</p>
+            <footer>
+              <strong>— María González</strong>
+              <span>Col. Arboledas</span>
+            </footer>
+          </blockquote>
+
+          <blockquote class="testimonio-card reveal" role="listitem">
+            <div class="stars" aria-label="5 estrellas">★★★★★</div>
+            <p>"Voy cada fin de semana a la sucursal de Las Águilas. La calidad
+               es siempre la misma y el equipo es súper amable. 10/10."</p>
+            <footer>
+              <strong>— Roberto Sánchez</strong>
+              <span>Col. Las Águilas</span>
+            </footer>
+          </blockquote>
+
+          <blockquote class="testimonio-card reveal" role="listitem">
+            <div class="stars" aria-label="5 estrellas">★★★★★</div>
+            <p>"La barbacoa más jugosa que existe. Mi familia entera es fan.
+               La promo del lunes es una joya del universo. ¡No la cambien!"</p>
+            <footer>
+              <strong>— Carmen López</strong>
+              <span>Zona Centro Médico</span>
+            </footer>
+          </blockquote>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         CTA FINAL
+    ══════════════════════════════════════════════════════════ -->
+    <section class="cta-section" aria-label="Llamada a la acción">
+      <div class="container">
+        <div class="cta-inner reveal">
+          <h2 class="cta-title">¿Ya te ganó el hambre?</h2>
+          <p class="cta-sub">Encuentra tu sucursal más cercana y ven a probar la diferencia.</p>
+          <a href="#seccion-sucursales" class="btn btn-primary btn-xl">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            Ver sucursales
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════════════════════
+       FOOTER
+       ✏️  EDITAR: redes sociales, teléfonos, año (el año es automático)
+  ══════════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <p class="footer-logo-text">LOS TOCAYOS</p>
+          <p class="footer-tagline">Barbacoa auténtica desde Jalisco.</p>
+          <!-- ✏️  EDITAR: URL de redes sociales -->
+          <div class="footer-social" aria-label="Redes sociales">
+            <a href="https://www.facebook.com/lostocayos" target="_blank"
+               rel="noopener noreferrer" aria-label="Facebook">
+              <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.instagram.com/lostocayos" target="_blank"
+               rel="noopener noreferrer" aria-label="Instagram">
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="https://wa.me/5213310000001" target="_blank"
+               rel="noopener noreferrer" aria-label="WhatsApp">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <nav class="footer-nav" aria-label="Navegación footer">
+          <h4>Sucursales</h4>
+          <ul>
+            <li><a href="/arboledas"    onclick="event.preventDefault();window.App?.navegarA('arboledas')">Arboledas</a></li>
+            <li><a href="/aguilas"      onclick="event.preventDefault();window.App?.navegarA('aguilas')">Las Águilas</a></li>
+            <li><a href="/estancia"     onclick="event.preventDefault();window.App?.navegarA('estancia')">La Estancia</a></li>
+            <li><a href="/centromedico" onclick="event.preventDefault();window.App?.navegarA('centromedico')">Centro Médico</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-contact">
+          <h4>Contacto</h4>
+          <!-- ✏️  EDITAR: teléfonos reales -->
+          <p><i class="fa-solid fa-phone" aria-hidden="true"></i>
+             <a href="tel:+523310000001">(33) 1000-0001</a> · Arboledas</p>
+          <p><i class="fa-solid fa-phone" aria-hidden="true"></i>
+             <a href="tel:+523310000002">(33) 1000-0002</a> · Águilas</p>
+          <p><i class="fa-solid fa-phone" aria-hidden="true"></i>
+             <a href="tel:+523310000003">(33) 1000-0003</a> · Estancia</p>
+          <p><i class="fa-solid fa-phone" aria-hidden="true"></i>
+             <a href="tel:+523310000004">(33) 1000-0004</a> · Centro Médico</p>
+          <!-- ✏️  EDITAR: correo real -->
+          <p><i class="fa-solid fa-envelope" aria-hidden="true"></i>
+             <a href="mailto:hola@lostocayos.mx">hola@lostocayos.mx</a></p>
+        </div>
+
+        <div class="footer-hours">
+          <h4>Horarios</h4>
+          <p><strong>Lunes a Viernes</strong><br />7:00 AM – 3:00 PM</p>
+          <p><strong>Sábado y Domingo</strong><br />7:00 AM – 2:00 PM</p>
+          <p class="footer-note">Hasta que se acabe la barbacoa 😄</p>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          &copy; <span id="footer-year"></span> Los Tocayos · Barbacoa Auténtica ·
+          Zona Metropolitana de Guadalajara, Jalisco, México
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════════
+       CONTENEDOR DEL CARRITO — inyectado por components/carrito.js
+  ══════════════════════════════════════════════════════════ -->
+  <div id="carrito-container"></div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SCRIPTS — carga en orden: datos → componentes → app
+  ══════════════════════════════════════════════════════════ -->
+
+  <!-- 1. Leaflet JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
+          crossorigin="anonymous"></script>
+
+  <!-- 2. Datos (fuente única de verdad) -->
+  <script src="data/sucursales.js"></script>
+  <script src="data/menus.js"></script>
+  <script src="data/promociones.js"></script>
+
+  <!-- 3. Componentes -->
+  <script src="components/carrito.js"></script>
+  <script src="components/menu.js"></script>
+  <script src="components/promo.js"></script>
+  <script src="components/sucursales.js"></script>
+  <script src="components/mapa.js"></script>
+
+  <!-- 4. Orquestador principal -->
+  <script src="app.js"></script>
+
+</body>
+</html>
