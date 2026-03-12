@@ -8,7 +8,10 @@
  *     (click derecho → "¿Qué hay aquí?" → copia los números)
  *   - Actualiza telefono, whatsapp, direccion, mapsUrl
  *   - whatsapp: formato 521 + 10 dígitos sin espacios ni +
- *   - horario: cadena única, p. ej. 'Lun – Dom · 7:00 – 15:00'
+ *   - horario: cadena única de texto, p.ej. 'Lun – Dom · 9:30 – 17:30'
+ *   - heroImg: ruta relativa o URL de la imagen de fondo del hero
+ *             Las imágenes de Unsplash son solo placeholder.
+ *             Reemplaza con fotos reales de cada sucursal.
  * ================================================================
  */
 
@@ -38,14 +41,15 @@ const SUCURSALES_DATA = {
     whatsapp: '5213323324878',
     mapsUrl: 'https://maps.app.goo.gl/f4rZjW4jQqRVoidq8',
 
-    /* Un solo horario fijo — sin separación entresemana / fin de semana */
+    /* Horario unificado — sin separar entresemana/fin de semana */
     horario: 'Lun – Dom · 9:30 – 17:30',
 
-    heroImg: '/img/grinda.jpeg',
-
+    /* ✏️  Reemplaza con foto real de la sucursal */
+    heroImg: '../img/tacosdorados.jpeg',
+    //https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1920&q=80&auto=format&fit=crop
     seo: {
       title:       'Los Tocayos Arboledas | Tacos de Barbacoa en Zapopan, Jalisco',
-      description: 'Los mejores tacos de barbacoa en Arboledas, Zapopan. Barbacoa auténtica, consomé, quesatacos. Abierto lunes a domingo desde las 7am. Los Tocayos.',
+      description: 'Los mejores tacos de barbacoa en Arboledas, Zapopan. Barbacoa auténtica, consomé, quesatacos. Abierto lunes a domingo desde las 9:30am. Los Tocayos.',
       keywords:    'tacos barbacoa Arboledas, tacos Zapopan, barbacoa Arboledas, Los Tocayos Arboledas, taquería Zapopan, tacos cerca de mi Zapopan',
       og: {
         image: 'https://www.lostocayos.mx/img/og-arboledas.jpg',
@@ -80,11 +84,12 @@ const SUCURSALES_DATA = {
     whatsapp: '5213322557171',
     mapsUrl: 'https://maps.app.goo.gl/k3wTB3ARCPnqWT487',
 
-    /* ✏️  Ajusta los días y horas según tu operación real */
+    /* ✏️  Ajusta días de descanso si aplica */
     horario: 'Lun – Sáb · 7:00 – 15:00',
 
-    heroImg: 'img/hero-aguilas.jpg',
-
+    /* ✏️  Reemplaza con foto real de la sucursal */
+    heroImg: '../img/tacosdorados.jpeg',
+    //https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?w=1920&q=80&auto=format&fit=crop
     seo: {
       title:       'Los Tocayos Las Águilas | Tacos de Barbacoa en Zapopan',
       description: 'Tacos de barbacoa en Las Águilas, Zapopan. Barbacoa artesanal, consomé y más. Visítanos de lunes a sábado desde las 7am. Los Tocayos.',
@@ -122,14 +127,15 @@ const SUCURSALES_DATA = {
     whatsapp: '5213336273815',
     mapsUrl: 'https://maps.app.goo.gl/ujPCxo82QPVpqoEC8',
 
-    /* ✏️  Ajusta los días y horas según tu operación real */
+    /* ✏️  Ajusta días de descanso si aplica */
     horario: 'Lun – Sáb · 7:00 – 15:00',
 
-    heroImg: 'img/hero-estancia.jpg',
+    /* ✏️  Reemplaza con foto real de la sucursal */
+    heroImg: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=1920&q=80&auto=format&fit=crop',
 
     seo: {
       title:       'Los Tocayos La Estancia | Tacos de Barbacoa en Zapopan',
-      description: 'Barbacoa auténtica en La Estancia, Zapopan. Tacos, consomé y más. Abierto todos los días desde las 7am. Los Tocayos.',
+      description: 'Barbacoa auténtica en La Estancia, Zapopan. Tacos, consomé y más. Abierto lunes a sábado desde las 7am. Los Tocayos.',
       keywords:    'tacos barbacoa La Estancia Zapopan, taquería La Estancia, barbacoa cerca de mi Zapopan, Los Tocayos La Estancia',
       og: {
         image: 'https://www.lostocayos.mx/img/og-estancia.jpg',
@@ -164,10 +170,11 @@ const SUCURSALES_DATA = {
     whatsapp: '5213317403159',
     mapsUrl: 'https://maps.app.goo.gl/ynFBevnLTevviYxJ8',
 
-    /* ✏️  Ajusta los días y horas según tu operación real */
+    /* ✏️  Ajusta días de descanso si aplica */
     horario: 'Lun – Sáb · 7:00 – 15:00',
 
-    heroImg: 'img/hero-centromedico.jpg',
+    /* ✏️  Reemplaza con foto real de la sucursal */
+    heroImg: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=1920&q=80&auto=format&fit=crop',
 
     seo: {
       title:       'Los Tocayos Centro Médico | Tacos de Barbacoa en Guadalajara',
