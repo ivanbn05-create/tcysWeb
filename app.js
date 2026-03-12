@@ -348,13 +348,3 @@ function _actualizarNavWA(sucursal) {
   link.href = `https://wa.me/${sucursal.whatsapp}?text=${msg}`;
   link.setAttribute('aria-label', `Contactar ${sucursal.nombre} por WhatsApp`);
 }
-
-/* ── FUNCIÓN MODIFICADA — reemplaza _cargarSucursal en app.js ───── */
-
-function _cargarSucursal(sucursalId) {
-  const sucursal = SUCURSALES_DATA[sucursalId];
-  if (!sucursal) {
-    console.warn('[App] Sucursal no encontrada:', sucursalId, '→ redirigiendo a default');
-    return _cargarSucursal(SUCURSAL_DEFAULT);
-  }
-}
