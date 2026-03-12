@@ -47,7 +47,7 @@ function renderSucursales(sucursalActivaId) {
         </a>
         <p class="sucursal-hours">
           <i class="fa-regular fa-clock" aria-hidden="true"></i>
-          ${_e(s.horario.semana)} · ${_e(s.horario.finSemana)}
+          ${_e(s.horario)}
         </p>
 
         <div class="sucursal-actions">
@@ -82,7 +82,6 @@ function renderSucursales(sucursalActivaId) {
         <p class="section-sub">4 puntos en la Zona Metropolitana de Guadalajara</p>
       </div>
 
-      <!-- Botón de geolocalización -->
       <div class="nearest-wrapper reveal">
         <button id="btn-nearest" class="btn btn-fire"
                 aria-label="Detectar mi sucursal más cercana">
@@ -117,24 +116,28 @@ function renderSucursales(sucursalActivaId) {
 
 /** Actualiza los indicadores de abierto/cerrado según la hora */
 function _actualizarEstados() {
-  const HORARIO = { semana: { abre:7, cierra:15 }, finSemana: { abre:7, cierra:14 } };
+  /* Horario unificado — ajusta si alguna sucursal tiene horario diferente */
+  const ABRE  = 7;
+  const CIERRA_SEMANA  = 15;
+  const CIERRA_FINSEM  = 14;
+
   const ahora = new Date();
   const dia   = ahora.getDay();
   const hora  = ahora.getHours() + ahora.getMinutes() / 60;
-  const h     = (dia === 0 || dia === 6) ? HORARIO.finSemana : HORARIO.semana;
-  const ok    = hora >= h.abre && hora < h.cierra;
+  const cierra = (dia === 0 || dia === 6) ? CIERRA_FINSEM : CIERRA_SEMANA;
+  const ok     = hora >= ABRE && hora < cierra;
 
   document.querySelectorAll('.sucursal-status').forEach(el => {
     const dot   = el.querySelector('.status-dot');
     const label = el.querySelector('.status-label');
     if (ok) {
       el.className = 'sucursal-status open';
-      if (dot) dot.style.background = '';
-      if (label) label.textContent = 'Abierto ahora';
+      if (dot)   { dot.style.background = ''; dot.style.animation = ''; }
+      if (label) { label.textContent = 'Abierto ahora'; label.style.color = ''; }
       el.setAttribute('aria-label', 'Sucursal abierta');
     } else {
       el.className = 'sucursal-status closed';
-      if (dot) { dot.style.background = '#f87171'; dot.style.animation = 'none'; }
+      if (dot)   { dot.style.background = '#f87171'; dot.style.animation = 'none'; }
       if (label) { label.textContent = 'Cerrado'; label.style.color = '#f87171'; }
       el.setAttribute('aria-label', 'Sucursal cerrada');
     }
@@ -178,7 +181,6 @@ function iniciarGeolocalizacion() {
       btn.disabled = false;
       const { sucursal, distancia } = masСercana(lat, lng);
 
-      // Debug en consola para verificar coordenadas
       console.group('🌮 Los Tocayos — Geolocalización');
       console.log('📍 Usuario:', lat, lng);
       SUCURSALES_ORDEN.forEach(id => {
@@ -187,7 +189,6 @@ function iniciarGeolocalizacion() {
       });
       console.groupEnd();
 
-      // Mostrar resultado
       resultDiv.innerHTML = `
         <div class="nearest-card">
           <span class="nearest-icon" aria-hidden="true">📍</span>
@@ -198,12 +199,10 @@ function iniciarGeolocalizacion() {
           </div>
         </div>`;
 
-      // Highlight tarjeta
       document.querySelectorAll('.sucursal-card').forEach(c => c.classList.remove('nearest-highlight'));
       document.querySelector(`.sucursal-card[data-sucursal-id="${sucursal.id}"]`)
               ?.classList.add('nearest-highlight');
 
-      // Ofrecer cambiar a esa sucursal si no es la activa
       if (sucursal.id !== window.App?.sucursalActualId) {
         const extra = document.createElement('div');
         extra.className = 'nearest-cambiar';

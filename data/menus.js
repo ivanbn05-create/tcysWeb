@@ -20,66 +20,77 @@
 const ITEMS_BASE = {
 
   tacoBarbacoa: {
-    id: 'taco-barbacoa',
+    id: 'td',
     nombre: 'Taco de Barbacoa',
     descripcion: 'Carne deshebrada, consomé, cilantro y cebolla. El clásico.',
-    precio: 20,
-    imagen: 'img/menu/taco-barbacoa.jpg',
+    precio: 23,
+    imagen: '../img/tacosdorados.jpeg',
     categoria: 'tacos',
     badge: '⭐ Estrella',
     enCarrito: true,
   },
 
-  ordenEspecial: {
-    id: 'orden-especial',
-    nombre: 'Orden Especial',
-    descripcion: '3 tacos + consomé + agua de sabor. La combinación perfecta.',
-    precio: 75,
-    imagen: 'img/menu/orden-especial.jpg',
-    categoria: 'ordenes',
-    badge: null,
-    enCarrito: true,
-  },
-
-  quesataco: {
-    id: 'quesataco',
-    nombre: 'Quesataco',
-    descripcion: 'Tortilla con queso Oaxaca fundido y barbacoa. La nueva obsesión.',
+  tacoBistek: {
+    id: 'tk',
+    nombre: 'Taco de Bistek',
+    descripcion: 'Bistek a la plancha en tortilla original y copia.',
     precio: 30,
-    imagen: 'img/menu/quesataco.jpg',
+    imagen: '../img/bistek.jpeg',
     categoria: 'tacos',
-    badge: '🆕 Nuevo',
+    badge: null,
     enCarrito: true,
   },
 
-  consomeChico: {
-    id: 'consome-chico',
-    nombre: 'Consomé Chico',
-    descripcion: 'Caldo natural de barbacoa con garbanzos, chile y hierbas.',
-    precio: 25,
-    imagen: 'img/menu/consome-chico.jpg',
+  tacoQueso: {
+    id: 'tbq',
+    nombre: 'Taco con Queso',
+    descripcion: 'Tortilla con nuestra mezcla de quesos gratinado y barbacoa.',
+    precio: 30,
+    imagen: '../img/tacoconqueso.jpeg',
+    categoria: 'tacos',
+    badge: null,
+    enCarrito: true,
+  },
+
+  consomeVaso: {
+    id: 'co',
+    nombre: 'Consomé 8 oz',
+    descripcion: 'Caldoito de barbacoa bien caliente.',
+    precio: 12,
+    imagen: '../img/mainlogo.jpeg',
     categoria: 'consomes',
     badge: null,
     enCarrito: true,
   },
 
-  consomeGrande: {
-    id: 'consome-grande',
-    nombre: 'Consomé Grande',
-    descripcion: 'El tamaño familiar. Más carne, más sabor. Ideal para compartir.',
-    precio: 45,
-    imagen: 'img/menu/consome-grande.jpg',
-    categoria: 'consomes',
-    badge: null,
-    enCarrito: true,
-  },
-
-  aguaSabor: {
-    id: 'agua-sabor',
-    nombre: 'Agua de Sabor',
-    descripcion: 'Jamaica, horchata o tamarindo. Natural, sin colorantes.',
+   consomeMedio: {
+    id: 'com',
+    nombre: 'Consomé Medio Litro',
+    descripcion: 'Caldoito de barbacoa, más grande, bien caliente.',
     precio: 20,
-    imagen: 'img/menu/agua-sabor.jpg',
+    imagen: '../img/mainlogo.jpeg',
+    categoria: 'consomes',
+    badge: null,
+    enCarrito: true,
+  },
+
+  consomeLitro: {
+    id: 'col',
+    nombre: 'Consomé de Litro',
+    descripcion: 'El tamaño familiar. Ideal para compartir.',
+    precio: 30,
+    imagen: '../img/mainlogo.jpeg',
+    categoria: 'consomes',
+    badge: null,
+    enCarrito: true,
+  },
+
+  aguaFresca: {
+    id: 'aguaFresca',
+    nombre: 'Aguas Frescas',
+    descripcion: 'Horchata blanca, horchata rosa y jamaica. Natural, sin colorantes. De cada día',
+    precio: 28,
+    imagen: '../img/aguasfrescas.jpeg',
     categoria: 'bebidas',
     badge: null,
     enCarrito: true,
@@ -131,13 +142,12 @@ const MENUS_DATA = {
   /* ── Arboledas — menú completo ─────────────────────────────── */
   arboledas: [
     ITEMS_BASE.tacoBarbacoa,
-    ITEMS_BASE.quesataco,
-    ITEMS_BASE.tacoCabeza,
-    ITEMS_BASE.ordenEspecial,
-    ITEMS_BASE.consomeChico,
-    ITEMS_BASE.consomeGrande,
-    ITEMS_BASE.aguaSabor,
-    ITEMS_BASE.paqueteFamiliar,
+    ITEMS_BASE.aguaFresca,
+    ITEMS_BASE.consomeVaso,
+    ITEMS_BASE.consomeMedio,
+    ITEMS_BASE.consomeLitro,
+    ITEMS_BASE.tacoBistek,
+    ITEMS_BASE.tacoQueso,
   ],
 
   /* ── Las Águilas ────────────────────────────────────────────── */

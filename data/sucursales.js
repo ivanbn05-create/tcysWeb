@@ -8,6 +8,7 @@
  *     (click derecho → "¿Qué hay aquí?" → copia los números)
  *   - Actualiza telefono, whatsapp, direccion, mapsUrl
  *   - whatsapp: formato 521 + 10 dígitos sin espacios ni +
+ *   - horario: cadena única, p. ej. 'Lun – Dom · 7:00 – 15:00'
  * ================================================================
  */
 
@@ -18,36 +19,30 @@ const SUCURSALES_DATA = {
   /* ── SUCURSAL 1 — ARBOLEDAS (PRINCIPAL, tiene carrito) ──────── */
   arboledas: {
     id: 'arboledas',
-    slug: 'arboledas',            // ruta URL: /arboledas
+    slug: 'arboledas',
     esPrincipal: true,
-    tieneCarrito: true,           // ← SOLO esta sucursal tiene carrito
+    tieneCarrito: true,
     nombre: 'Arboledas',
     nombreCompleto: 'Los Tocayos Arboledas',
     subtitulo: 'Sucursal Principal',
 
-    /* EDITAR: coordenadas reales (Google Maps → click derecho) */
     lat: 20.63183901659015,
     lng: -103.42938124907371,
 
-    /* EDITAR: datos de contacto */
     direccion: 'Av. Mariano Otero 5665, Arboledas, 45070 Zapopan, Jal.',
     ciudad: 'Zapopan',
     estado: 'Jalisco',
     cp: '45070',
     telefono: '3315421635',
     telefonoDisplay: '(33) 1542-1635',
-    whatsapp: '5213323324878',    // 521 + 10 dígitos
+    whatsapp: '5213323324878',
     mapsUrl: 'https://maps.app.goo.gl/f4rZjW4jQqRVoidq8',
 
-    horario: {
-      semana:    'Lun–Dom 9:30 – 17:30',
-      finSemana: 'Lun–Dom 9:30 – 17:30',
-    },
+    /* Un solo horario fijo — sin separación entresemana / fin de semana */
+    horario: 'Lun – Dom · 9:30 – 17:30',
 
-    /* EDITAR: imagen del hero específica de esta sucursal */
     heroImg: '/img/grinda.jpeg',
 
-    /* SEO específico por sucursal */
     seo: {
       title:       'Los Tocayos Arboledas | Tacos de Barbacoa en Zapopan, Jalisco',
       description: 'Los mejores tacos de barbacoa en Arboledas, Zapopan. Barbacoa auténtica, consomé, quesatacos. Abierto lunes a domingo desde las 7am. Los Tocayos.',
@@ -85,16 +80,14 @@ const SUCURSALES_DATA = {
     whatsapp: '5213322557171',
     mapsUrl: 'https://maps.app.goo.gl/k3wTB3ARCPnqWT487',
 
-    horario: {
-      semana:    'Lun–Vie 7:00 – 15:00',
-      finSemana: 'Sáb–Dom 7:00 – 14:00',
-    },
+    /* ✏️  Ajusta los días y horas según tu operación real */
+    horario: 'Lun – Sáb · 7:00 – 15:00',
 
     heroImg: 'img/hero-aguilas.jpg',
 
     seo: {
       title:       'Los Tocayos Las Águilas | Tacos de Barbacoa en Zapopan',
-      description: 'Tacos de barbacoa en Las Águilas, Zapopan. Barbacoa artesanal, consomé y más. Visítanos de lunes a domingo desde las 7am. Los Tocayos.',
+      description: 'Tacos de barbacoa en Las Águilas, Zapopan. Barbacoa artesanal, consomé y más. Visítanos de lunes a sábado desde las 7am. Los Tocayos.',
       keywords:    'tacos barbacoa Las Águilas, tacos Zapopan Las Águilas, barbacoa Zapopan, Los Tocayos Águilas, taquería Las Águilas',
       og: {
         image: 'https://www.lostocayos.mx/img/og-aguilas.jpg',
@@ -129,10 +122,8 @@ const SUCURSALES_DATA = {
     whatsapp: '5213336273815',
     mapsUrl: 'https://maps.app.goo.gl/ujPCxo82QPVpqoEC8',
 
-    horario: {
-      semana:    'Lun–Vie 7:00 – 15:00',
-      finSemana: 'Sáb–Dom 7:00 – 14:00',
-    },
+    /* ✏️  Ajusta los días y horas según tu operación real */
+    horario: 'Lun – Sáb · 7:00 – 15:00',
 
     heroImg: 'img/hero-estancia.jpg',
 
@@ -173,10 +164,8 @@ const SUCURSALES_DATA = {
     whatsapp: '5213317403159',
     mapsUrl: 'https://maps.app.goo.gl/ynFBevnLTevviYxJ8',
 
-    horario: {
-      semana:    'Lun–Vie 7:00 – 15:00',
-      finSemana: 'Sáb–Dom 7:00 – 14:00',
-    },
+    /* ✏️  Ajusta los días y horas según tu operación real */
+    horario: 'Lun – Sáb · 7:00 – 15:00',
 
     heroImg: 'img/hero-centromedico.jpg',
 
