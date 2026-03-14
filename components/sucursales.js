@@ -108,38 +108,76 @@ function renderSucursales(sucursalActivaId) {
   document.getElementById('btn-nearest')
     ?.addEventListener('click', iniciarGeolocalizacion);
 
-  // Actualizar estados abierto/cerrado
+  // Actualizar estados abierto/cerrado usando los horarios del data
   _actualizarEstados();
 
   if (window.App?.reObservar) window.App.reObservar(seccion);
 }
 
-/** Actualiza los indicadores de abierto/cerrado según la hora */
+/**
+ * Actualiza el indicador abierto/cerrado de cada tarjeta de sucursal
+ * leyendo el campo `horarios` de SUCURSALES_DATA para esa sucursal.
+ *
+ * Cada tarjeta tiene `data-sucursal-id` → consultamos SUCURSALES_DATA[id].horarios[diaActual].
+ * Si el elemento es null → cerrado.
+ * Si tiene { abre, cierra } → abierto si la hora actual está dentro del rango.
+ */
 function _actualizarEstados() {
-  /* Horario unificado — ajusta si alguna sucursal tiene horario diferente */
-  const ABRE  = 7;
-  const CIERRA_SEMANA  = 15;
-  const CIERRA_FINSEM  = 14;
+  const ahora   = new Date();
+  const diaHoy  = ahora.getDay();                              // 0 Dom … 6 Sáb
+  const horaHoy = ahora.getHours() + ahora.getMinutes() / 60; // decimal, ej. 13.5
 
-  const ahora = new Date();
-  const dia   = ahora.getDay();
-  const hora  = ahora.getHours() + ahora.getMinutes() / 60;
-  const cierra = (dia === 0 || dia === 6) ? CIERRA_FINSEM : CIERRA_SEMANA;
-  const ok     = hora >= ABRE && hora < cierra;
+  document.querySelectorAll('.sucursal-card').forEach(card => {
+    const sucursalId = card.dataset.sucursalId;
+    const sucursal   = typeof SUCURSALES_DATA !== 'undefined'
+                       ? SUCURSALES_DATA[sucursalId]
+                       : null;
 
-  document.querySelectorAll('.sucursal-status').forEach(el => {
-    const dot   = el.querySelector('.status-dot');
-    const label = el.querySelector('.status-label');
-    if (ok) {
-      el.className = 'sucursal-status open';
-      if (dot)   { dot.style.background = ''; dot.style.animation = ''; }
-      if (label) { label.textContent = 'Abierto ahora'; label.style.color = ''; }
-      el.setAttribute('aria-label', 'Sucursal abierta');
+    const statusEl = card.querySelector('.sucursal-status');
+    const dotEl    = card.querySelector('.status-dot');
+    const labelEl  = card.querySelector('.status-label');
+    if (!statusEl || !dotEl || !labelEl) return;
+
+    /* Determinar si abre hoy y si la hora actual está dentro del rango */
+    let estaAbierto = false;
+    let labelTexto  = 'Cerrado';
+
+    if (sucursal?.horarios) {
+      const turno = sucursal.horarios[diaHoy]; // null o { abre, cierra }
+
+      if (turno) {
+        /* Parsear "HH:MM" → número decimal */
+        const [abreH,  abreM]   = turno.abre.split(':').map(Number);
+        const [cierraH, cierraM] = turno.cierra.split(':').map(Number);
+        const abre   = abreH  + abreM   / 60;
+        const cierra = cierraH + cierraM / 60;
+
+        estaAbierto = horaHoy >= abre && horaHoy < cierra;
+
+        if (!estaAbierto) {
+          /* Si aún no ha abierto, mostrar hora de apertura */
+          labelTexto = horaHoy < abre
+            ? `Abre a las ${turno.abre}`
+            : 'Cerrado por hoy';
+        }
+      }
+      /* turno === null → descanso ese día → labelTexto ya es 'Cerrado' */
+    }
+
+    if (estaAbierto) {
+      statusEl.className = 'sucursal-status open';
+      dotEl.style.background  = '';
+      dotEl.style.animation   = '';
+      labelEl.textContent     = 'Abierto ahora';
+      labelEl.style.color     = '';
+      statusEl.setAttribute('aria-label', 'Sucursal abierta');
     } else {
-      el.className = 'sucursal-status closed';
-      if (dot)   { dot.style.background = '#f87171'; dot.style.animation = 'none'; }
-      if (label) { label.textContent = 'Cerrado'; label.style.color = '#f87171'; }
-      el.setAttribute('aria-label', 'Sucursal cerrada');
+      statusEl.className = 'sucursal-status closed';
+      dotEl.style.background  = '#f87171';
+      dotEl.style.animation   = 'none';
+      labelEl.textContent     = labelTexto;
+      labelEl.style.color     = '#f87171';
+      statusEl.setAttribute('aria-label', `Sucursal cerrada — ${labelTexto}`);
     }
   });
 }
@@ -180,14 +218,6 @@ function iniciarGeolocalizacion() {
     ({ coords: { latitude: lat, longitude: lng } }) => {
       btn.disabled = false;
       const { sucursal, distancia } = masСercana(lat, lng);
-
-      console.group('🌮 Los Tocayos — Geolocalización');
-      console.log('📍 Usuario:', lat, lng);
-      SUCURSALES_ORDEN.forEach(id => {
-        const s = SUCURSALES_DATA[id];
-        console.log(`  → ${s.nombre}:`, haversine(lat, lng, s.lat, s.lng).toFixed(2), 'km');
-      });
-      console.groupEnd();
 
       resultDiv.innerHTML = `
         <div class="nearest-card">

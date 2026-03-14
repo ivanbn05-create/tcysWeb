@@ -1001,43 +1001,68 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
 }
 
 /* ================================================
-   TESTIMONIOS
+   SECCIÓN DEL CORRAL — Showcase de cortes premium
+   Reemplaza la antigua sección de testimonios.
+
+   Las tarjetas reutilizan exactamente las clases del menú:
+   .menu-card  .menu-img-wrap  .menu-badge-hot
+   .menu-price-float  .menu-card-body  .menu-card-footer
+   .menu-tag
+
+   La única clase nueva es .corte-card (diferenciador semántico)
+   y .cortes-cta (banner del botón final).
    ================================================ */
-.testimonios-section { padding: 5rem 0; background: var(--negro); }
-.testimonios-section .section-title { color: var(--blanco); }
-.testimonios-section .section-badge { color: rgba(255,255,255,0.35); }
-.testimonios-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
+.cortes-section {
+  padding: 5rem 0;
+  background: var(--negro);   /* fondo oscuro — contrasta con el menú blanco */
 }
-.testimonio-card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius);
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-.stars { color: var(--amarillo); font-size: 1rem; letter-spacing: 3px; }
-.testimonio-card p {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.7);
-  font-style: italic;
-  flex: 1;
-}
-.testimonio-card footer { display: flex; flex-direction: column; gap: 2px; }
-.testimonio-card footer strong {
-  font-family: var(--font-ui);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.cortes-section .section-title { color: var(--blanco); }
+.cortes-section .section-badge { color: rgba(255,255,255,0.35); }
+.cortes-section .section-sub   { color: rgba(255,255,255,0.5); }
+
+/* Las tarjetas de cortes son .menu-card pero con fondo oscuro
+   para encajar en la sección negra */
+.cortes-section .menu-card,
+.corte-card {
+  background: #1a1a1a;
+  border-color: rgba(255,255,255,0.12);
   color: var(--blanco);
 }
-.testimonio-card footer span { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+.cortes-section .menu-card:hover,
+.corte-card:hover {
+  box-shadow: 4px 4px 0 rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.3);
+}
+.cortes-section .menu-card-body h3 { color: var(--blanco); }
+.cortes-section .menu-card-body p  { color: rgba(255,255,255,0.55); }
+.cortes-section .menu-card-footer  { border-top-color: rgba(255,255,255,0.1); }
+.cortes-section .menu-tag          { color: rgba(255,255,255,0.4); }
+
+/* Icono de enlace externo en la tarjeta */
+.corte-ver-btn {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.35);
+  flex-shrink: 0;
+  transition: color var(--trans);
+}
+.corte-card:hover .corte-ver-btn { color: var(--amarillo); }
+
+/* Banner CTA debajo del grid */
+.cortes-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.cortes-section .btn-primary {
+  background: var(--amarillo);
+  border-color: var(--amarillo);
+  color: var(--negro);
+}
+.cortes-section .btn-primary:hover {
+  background: var(--blanco);
+  border-color: var(--blanco);
+  color: var(--negro);
+}
 
 /* ================================================
    CTA FINAL

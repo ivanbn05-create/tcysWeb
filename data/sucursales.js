@@ -3,15 +3,30 @@
  * LOS TOCAYOS — data/sucursales.js
  * Fuente única de datos de sucursales.
  * ================================================================
- * ✏️  CÓMO EDITAR:
- *   - Cambia lat/lng con coordenadas reales de Google Maps
- *     (click derecho → "¿Qué hay aquí?" → copia los números)
- *   - Actualiza telefono, whatsapp, direccion, mapsUrl
- *   - whatsapp: formato 521 + 10 dígitos sin espacios ni +
- *   - horario: cadena única de texto, p.ej. 'Lun – Dom · 9:30 – 17:30'
- *   - heroImg: ruta relativa o URL de la imagen de fondo del hero
- *             Las imágenes de Unsplash son solo placeholder.
- *             Reemplaza con fotos reales de cada sucursal.
+ * ✏️  CÓMO EDITAR HORARIOS:
+ *
+ *   El campo `horarios` es un arreglo de 7 elementos donde el
+ *   índice representa el día de la semana (igual que Date.getDay()):
+ *     0 = Domingo · 1 = Lunes · 2 = Martes · 3 = Miércoles
+ *     4 = Jueves  · 5 = Viernes · 6 = Sábado
+ *
+ *   Cada elemento es:
+ *     · null                           → cerrado ese día
+ *     · { abre: 'HH:MM', cierra: 'HH:MM' }  → abierto en ese rango
+ *
+ *   Ejemplo: sucursal que descansa el domingo:
+ *     horarios: [
+ *       null,                              // 0 domingo  — cerrado
+ *       { abre: '07:00', cierra: '15:00' },// 1 lunes    — abierto
+ *       { abre: '07:00', cierra: '15:00' },// 2 martes   — abierto
+ *       { abre: '07:00', cierra: '15:00' },// 3 miércoles— abierto
+ *       { abre: '07:00', cierra: '15:00' },// 4 jueves   — abierto
+ *       { abre: '07:00', cierra: '15:00' },// 5 viernes  — abierto
+ *       { abre: '07:00', cierra: '15:00' },// 6 sábado   — abierto
+ *     ],
+ *
+ *   El campo `horario` (string) sigue usándose como texto
+ *   descriptivo visible en la UI (tarjetas, mapa, etc.).
  * ================================================================
  */
 
@@ -41,12 +56,23 @@ const SUCURSALES_DATA = {
     whatsapp: '5213323324878',
     mapsUrl: 'https://maps.app.goo.gl/f4rZjW4jQqRVoidq8',
 
-    /* Horario unificado — sin separar entresemana/fin de semana */
+    /* Texto descriptivo para mostrar en UI */
     horario: 'Lun – Dom · 9:30 – 17:30',
 
-    /* ✏️  Reemplaza con foto real de la sucursal */
+    /* ✏️  Horarios por día: arreglo [Dom, Lun, Mar, Mié, Jue, Vie, Sáb]
+          Arboledas abre todos los días */
+    horarios: [
+      { abre: '09:30', cierra: '17:30' }, // 0 domingo
+      { abre: '09:30', cierra: '17:30' }, // 1 lunes
+      { abre: '09:30', cierra: '17:30' }, // 2 martes
+      { abre: '09:30', cierra: '17:30' }, // 3 miércoles
+      { abre: '09:30', cierra: '17:30' }, // 4 jueves
+      { abre: '09:30', cierra: '17:30' }, // 5 viernes
+      { abre: '09:30', cierra: '17:30' }, // 6 sábado
+    ],
+
     heroImg: '../img/tacosdorados.jpeg',
-    //https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1920&q=80&auto=format&fit=crop
+
     seo: {
       title:       'Los Tocayos Arboledas | Tacos de Barbacoa en Zapopan, Jalisco',
       description: 'Los mejores tacos de barbacoa en Arboledas, Zapopan. Barbacoa auténtica, consomé, quesatacos. Abierto lunes a domingo desde las 9:30am. Los Tocayos.',
@@ -84,12 +110,21 @@ const SUCURSALES_DATA = {
     whatsapp: '5213322557171',
     mapsUrl: 'https://maps.app.goo.gl/k3wTB3ARCPnqWT487',
 
-    /* ✏️  Ajusta días de descanso si aplica */
     horario: 'Lun – Sáb · 7:00 – 15:00',
 
-    /* ✏️  Reemplaza con foto real de la sucursal */
+    /* ✏️  Las Águilas: cerrado el domingo */
+    horarios: [
+      null,                               // 0 domingo  — cerrado
+      { abre: '07:00', cierra: '15:00' }, // 1 lunes
+      { abre: '07:00', cierra: '15:00' }, // 2 martes
+      { abre: '07:00', cierra: '15:00' }, // 3 miércoles
+      { abre: '07:00', cierra: '15:00' }, // 4 jueves
+      { abre: '07:00', cierra: '15:00' }, // 5 viernes
+      { abre: '07:00', cierra: '15:00' }, // 6 sábado
+    ],
+
     heroImg: '../img/tacosdorados.jpeg',
-    //https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?w=1920&q=80&auto=format&fit=crop
+
     seo: {
       title:       'Los Tocayos Las Águilas | Tacos de Barbacoa en Zapopan',
       description: 'Tacos de barbacoa en Las Águilas, Zapopan. Barbacoa artesanal, consomé y más. Visítanos de lunes a sábado desde las 7am. Los Tocayos.',
@@ -127,10 +162,19 @@ const SUCURSALES_DATA = {
     whatsapp: '5213336273815',
     mapsUrl: 'https://maps.app.goo.gl/ujPCxo82QPVpqoEC8',
 
-    /* ✏️  Ajusta días de descanso si aplica */
     horario: 'Lun – Sáb · 7:00 – 15:00',
 
-    /* ✏️  Reemplaza con foto real de la sucursal */
+    /* ✏️  La Estancia: cerrado el domingo */
+    horarios: [
+      null,                               // 0 domingo  — cerrado
+      { abre: '07:00', cierra: '15:00' }, // 1 lunes
+      { abre: '07:00', cierra: '15:00' }, // 2 martes
+      { abre: '07:00', cierra: '15:00' }, // 3 miércoles
+      { abre: '07:00', cierra: '15:00' }, // 4 jueves
+      { abre: '07:00', cierra: '15:00' }, // 5 viernes
+      { abre: '07:00', cierra: '15:00' }, // 6 sábado
+    ],
+
     heroImg: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=1920&q=80&auto=format&fit=crop',
 
     seo: {
@@ -170,10 +214,19 @@ const SUCURSALES_DATA = {
     whatsapp: '5213317403159',
     mapsUrl: 'https://maps.app.goo.gl/ynFBevnLTevviYxJ8',
 
-    /* ✏️  Ajusta días de descanso si aplica */
     horario: 'Lun – Sáb · 7:00 – 15:00',
 
-    /* ✏️  Reemplaza con foto real de la sucursal */
+    /* ✏️  Centro Médico: cerrado el domingo */
+    horarios: [
+      null,                               // 0 domingo  — cerrado
+      { abre: '07:00', cierra: '15:00' }, // 1 lunes
+      { abre: '07:00', cierra: '15:00' }, // 2 martes
+      { abre: '07:00', cierra: '15:00' }, // 3 miércoles
+      { abre: '07:00', cierra: '15:00' }, // 4 jueves
+      { abre: '07:00', cierra: '15:00' }, // 5 viernes
+      { abre: '07:00', cierra: '15:00' }, // 6 sábado
+    ],
+
     heroImg: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=1920&q=80&auto=format&fit=crop',
 
     seo: {

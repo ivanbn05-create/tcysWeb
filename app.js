@@ -3,19 +3,6 @@
  * LOS TOCAYOS — app.js
  * Router SPA, gestor de SEO y orquestador de componentes.
  * ================================================================
- *
- * RUTAS:
- *   /            → Arboledas (default)
- *   /arboledas   → Sucursal Arboledas
- *   /aguilas     → Sucursal Las Águilas
- *   /estancia    → Sucursal La Estancia
- *   /centromedico→ Zona Centro Médico
- *
- * REQUIERE .htaccess en la raíz para reescritura de URLs:
- *   RewriteEngine On
- *   RewriteCond %{REQUEST_FILENAME} !-f
- *   RewriteRule ^(.*)$ index.html [L,QSA]
- * ================================================================
  */
 
 'use strict';
@@ -25,14 +12,12 @@ window.App = {
   sucursalActualId: null,
   sucursalActual:   null,
 
-  /** Navegar a una sucursal por ID */
   navegarA(sucursalId) {
     const slug = sucursalId === SUCURSAL_DEFAULT ? '' : sucursalId;
     history.pushState({ sucursalId }, '', '/' + slug);
     _cargarSucursal(sucursalId);
   },
 
-  /** Exponer para que los componentes llamen a reObservar */
   reObservar(contenedor) {
     _observarElementos(contenedor);
   },
@@ -47,13 +32,12 @@ const RUTAS = {
   'centromedico':  'centromedico',
 };
 
-/* ── Resolver ruta actual a ID de sucursal ─────────────────────── */
 function _resolverRuta() {
   const path = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');
   return RUTAS[path] ?? SUCURSAL_DEFAULT;
 }
 
-/* ── Cargar sucursal: actualizar todos los componentes ─────────── */
+/* ── Cargar sucursal ────────────────────────────────────────────── */
 function _cargarSucursal(sucursalId) {
   const sucursal = SUCURSALES_DATA[sucursalId];
   if (!sucursal) {
@@ -61,61 +45,37 @@ function _cargarSucursal(sucursalId) {
     return _cargarSucursal(SUCURSAL_DEFAULT);
   }
 
-   App.sucursalActualId = sucursalId;
+  App.sucursalActualId = sucursalId;
   App.sucursalActual   = sucursal;
 
-  // 1. SEO
   _actualizarSEO(sucursal);
-
-  // 2. Hero
   _renderHero(sucursal);
-
-  // 3. Navbar — WhatsApp dinámico  ← NUEVO
   _actualizarNavWA(sucursal);
-
-  // 4. Branch switcher
   _actualizarSwitcher(sucursalId);
-
-  // 5. Promociones
   renderPromos(sucursalId);
-
-  // 6. Menú
   renderMenu(sucursalId, sucursal.tieneCarrito);
-
-  // 7. Sucursales
   renderSucursales(sucursalId);
-
-  // 8. Mapa
   renderMapa(sucursalId);
-
-  // 9. Carrito — mostrar/ocultar
   _toggleCarritoUI(sucursal.tieneCarrito);
-
-  // 10. Scroll top
   window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  // 11. Scroll reveal
   setTimeout(() => _observarElementos(document.body), 100);
 }
 
-/* ── SEO: actualizar meta tags y Schema.org dinámicamente ───────── */
+/* ── SEO ────────────────────────────────────────────────────────── */
 function _actualizarSEO(sucursal) {
   const { seo } = sucursal;
-  const base = 'https://www.lostocayos.mx';
 
-  // Título y metas básicas
   document.title = seo.title;
-  _setMeta('name', 'description',    seo.description);
-  _setMeta('name', 'keywords',       seo.keywords);
-  _setMeta('property', 'og:title',   seo.title);
-  _setMeta('property', 'og:description', seo.description);
-  _setMeta('property', 'og:url',     seo.og.url);
-  _setMeta('property', 'og:image',   seo.og.image);
-  _setMeta('name', 'twitter:title',  seo.title);
-  _setMeta('name', 'twitter:description', seo.description);
-  _setMeta('name', 'twitter:image',  seo.og.image);
+  _setMeta('name',     'description',      seo.description);
+  _setMeta('name',     'keywords',         seo.keywords);
+  _setMeta('property', 'og:title',         seo.title);
+  _setMeta('property', 'og:description',   seo.description);
+  _setMeta('property', 'og:url',           seo.og.url);
+  _setMeta('property', 'og:image',         seo.og.image);
+  _setMeta('name',     'twitter:title',    seo.title);
+  _setMeta('name',     'twitter:description', seo.description);
+  _setMeta('name',     'twitter:image',    seo.og.image);
 
-  // Canonical
   let canonical = document.querySelector('link[rel="canonical"]');
   if (!canonical) {
     canonical = document.createElement('link');
@@ -124,16 +84,14 @@ function _actualizarSEO(sucursal) {
   }
   canonical.href = seo.og.url;
 
-  // Schema.org — Restaurant por sucursal
   const schemaId = 'schema-sucursal';
   let schemaEl = document.getElementById(schemaId);
   if (!schemaEl) {
     schemaEl = document.createElement('script');
     schemaEl.type = 'application/ld+json';
-    schemaEl.id = schemaId;
+    schemaEl.id   = schemaId;
     document.head.appendChild(schemaEl);
   }
-
   schemaEl.textContent = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
@@ -159,14 +117,6 @@ function _actualizarSEO(sucursal) {
       longitude: sucursal.lng,
     },
     hasMap: sucursal.mapsUrl,
-    openingHoursSpecification: [
-      { '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'],
-        opens: '07:00', closes: '15:00' },
-      { '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Saturday','Sunday'],
-        opens: '07:00', closes: '14:00' },
-    ],
     sameAs: [
       'https://www.facebook.com/lostocayos',
       'https://www.instagram.com/lostocayos',
@@ -184,28 +134,26 @@ function _setMeta(attrName, attrValue, content) {
   el.setAttribute('content', content || '');
 }
 
-/* ── Hero section ───────────────────────────────────────────────── */
+/* ── Hero ───────────────────────────────────────────────────────── */
 function _renderHero(sucursal) {
   const hero = document.getElementById('seccion-hero');
   if (!hero) return;
 
-  // Cambiar imagen de fondo con transición
   hero.style.transition = 'opacity .3s ease';
-  hero.style.opacity = '0';
+  hero.style.opacity    = '0';
 
   setTimeout(() => {
     hero.style.backgroundImage = `url('${sucursal.heroImg}')`;
-    hero.style.opacity = '1';
+    hero.style.opacity         = '1';
   }, 300);
 
-  // Actualizar texto dinámico del hero
   const elNombre   = document.getElementById('hero-sucursal-nombre');
   const elSubtitle = document.getElementById('hero-sucursal-subtitulo');
   if (elNombre)   elNombre.textContent   = sucursal.nombre;
   if (elSubtitle) elSubtitle.textContent = sucursal.subtitulo;
 }
 
-/* ── Branch Switcher (pestañas de sucursal) ────────────────────── */
+/* ── Branch Switcher ────────────────────────────────────────────── */
 function _actualizarSwitcher(sucursalActiva) {
   document.querySelectorAll('.switcher-tab').forEach(tab => {
     const activa = tab.dataset.sucursal === sucursalActiva;
@@ -214,13 +162,12 @@ function _actualizarSwitcher(sucursalActiva) {
   });
 }
 
-/* ── Carrito: mostrar/ocultar el botón flotante ─────────────────── */
+/* ── Carrito: mostrar/ocultar botón flotante ────────────────────── */
 function _toggleCarritoUI(mostrar) {
   const boton = document.getElementById('btn-carrito-flotante');
   if (!boton) return;
   boton.style.display = mostrar ? 'flex' : 'none';
   if (!mostrar && Carrito.abierto) {
-    // Cerrar el drawer si estaba abierto y cambiamos de sucursal
     document.getElementById('carrito-drawer')?.classList.remove('open');
     document.getElementById('carrito-overlay')?.classList.remove('open');
     Carrito.abierto = false;
@@ -228,7 +175,7 @@ function _toggleCarritoUI(mostrar) {
   }
 }
 
-/* ── Scroll Reveal con IntersectionObserver ─────────────────────── */
+/* ── Scroll Reveal ──────────────────────────────────────────────── */
 let _observer = null;
 
 function _observarElementos(contenedor) {
@@ -242,7 +189,6 @@ function _observarElementos(contenedor) {
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   }
-
   contenedor.querySelectorAll('.reveal:not(.visible)').forEach(el => {
     _observer.observe(el);
   });
@@ -252,6 +198,26 @@ function _observarElementos(contenedor) {
 function _initFooter() {
   const el = document.getElementById('footer-year');
   if (el) el.textContent = new Date().getFullYear();
+}
+
+/**
+ * Rellena dinámicamente la lista de contactos del footer
+ * leyendo los datos reales de SUCURSALES_DATA.
+ * En index.html el div debe tener id="footer-contact-list".
+ */
+function _renderFooterContactos() {
+  const lista = document.getElementById('footer-contact-list');
+  if (!lista || typeof SUCURSALES_DATA === 'undefined') return;
+
+  lista.innerHTML = SUCURSALES_ORDEN.map(id => {
+    const s = SUCURSALES_DATA[id];
+    return `
+      <p>
+        <i class="fa-solid fa-phone" aria-hidden="true"></i>
+        <a href="tel:+52${s.telefono}">${s.telefonoDisplay}</a>
+        · ${s.nombre}
+      </p>`;
+  }).join('');
 }
 
 /* ── Navbar: scroll shrink + hamburguesa ───────────────────────── */
@@ -288,7 +254,7 @@ function _initNavbar() {
   });
 }
 
-/* ── Branch Switcher: bind clicks en las pestañas ──────────────── */
+/* ── Branch Switcher: bind clicks ──────────────────────────────── */
 function _initSwitcher() {
   document.getElementById('branch-switcher')
     ?.addEventListener('click', e => {
@@ -298,7 +264,7 @@ function _initSwitcher() {
     });
 }
 
-/* ── Smooth scroll para anclas internas ────────────────────────── */
+/* ── Smooth scroll para anclas ─────────────────────────────────── */
 function _initSmoothScroll() {
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href^="#"]');
@@ -316,29 +282,13 @@ function _initSmoothScroll() {
   });
 }
 
-/* ── Popstate: botón atrás/adelante del navegador ──────────────── */
+/* ── Popstate ───────────────────────────────────────────────────── */
 window.addEventListener('popstate', e => {
   const id = e.state?.sucursalId ?? _resolverRuta();
   _cargarSucursal(id);
 });
 
-/* ── INIT ───────────────────────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
-  _initFooter();
-  _initNavbar();
-  _initSwitcher();
-  _initSmoothScroll();
-  initCarrito();
-
-  // Cargar la sucursal según la ruta actual
-  const sucursalInicial = _resolverRuta();
-  history.replaceState({ sucursalId: sucursalInicial }, '', window.location.href);
-  _cargarSucursal(sucursalInicial);
-});
-
-/* ── NUEVA FUNCIÓN — pegar en app.js ────────────────────────────── */
-
-/** Actualiza el enlace WhatsApp del navbar con la sucursal activa. */
+/* ── WhatsApp dinámico en navbar ───────────────────────────────── */
 function _actualizarNavWA(sucursal) {
   const link = document.getElementById('nav-wa-link');
   if (!link) return;
@@ -348,3 +298,18 @@ function _actualizarNavWA(sucursal) {
   link.href = `https://wa.me/${sucursal.whatsapp}?text=${msg}`;
   link.setAttribute('aria-label', `Contactar ${sucursal.nombre} por WhatsApp`);
 }
+
+/* ── INIT ───────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  _initFooter();
+  _renderFooterContactos();   // ← rellena teléfonos del footer desde SUCURSALES_DATA
+  _initNavbar();
+  _initSwitcher();
+  _initSmoothScroll();
+  initCarrito();
+  renderCortes();              // ← renderiza showcase de Del Corral (una sola vez)
+
+  const sucursalInicial = _resolverRuta();
+  history.replaceState({ sucursalId: sucursalInicial }, '', window.location.href);
+  _cargarSucursal(sucursalInicial);
+});

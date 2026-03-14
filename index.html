@@ -68,14 +68,14 @@
   <!-- Estilos del proyecto -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Favicon — reemplaza con tu icono real -->
+  <!-- Favicon -->
   <!-- <link rel="icon" type="image/png" href="img/favicon.png" /> -->
 </head>
 
 <body>
 
   <!-- ══════════════════════════════════════════════════════════
-       NAVBAR — FIJA
+       NAVBAR
   ══════════════════════════════════════════════════════════ -->
   <header class="navbar" role="banner">
     <div class="nav-inner">
@@ -90,33 +90,28 @@
         <span class="hamburger"></span>
       </button>
 
-      <!-- ══════════════════════════════════════════════════════════
-     Reemplaza el bloque <nav id="nav-menu"> en index.html
-     Cambios: "Pedir" → "Cortes" (externo) + "Contacto" (WA dinámico)
-══════════════════════════════════════════════════════════ -->
       <nav id="nav-menu" class="nav-menu" role="navigation"
            aria-label="Navegación principal">
         <ul>
           <li><a href="#seccion-promo">Promos</a></li>
           <li><a href="#seccion-menu">Menú</a></li>
           <li><a href="#seccion-sucursales">Sucursales</a></li>
-          <li><a href="#seccion-testimonios">Opiniones</a></li>
+          <!-- Enlace a la sección de cortes — reemplaza "Opiniones" -->
+          <li><a href="#seccion-cortes">Cortes</a></li>
 
-          <!-- Botón Cortes → URL externa (cambiar por la real) -->
+          <!-- Botón Del Corral → URL externa -->
           <li>
             <a href="https://TU-TIENDA-DE-CORTES.COM"
                class="nav-cta"
                target="_blank"
                rel="noopener noreferrer"
-               aria-label="Visitar tienda de cortes">
+               aria-label="Visitar tienda Del Corral Cortes Finos">
               <i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i>
-              Cortes
+              Del Corral
             </a>
           </li>
 
-          <!-- Botón Contacto → WhatsApp de la sucursal activa.
-               El href se actualiza automáticamente en app.js
-               cada vez que el usuario cambia de sucursal.         -->
+          <!-- WhatsApp dinámico — href actualizado por app.js según sucursal activa -->
           <li>
             <a id="nav-wa-link"
                href="https://wa.me/5213323324878"
@@ -134,15 +129,12 @@
   </header>
 
   <!-- ══════════════════════════════════════════════════════════
-       BRANCH SWITCHER — Selector de sucursal (pestañas)
-       El contenido se genera dinámicamente desde SUCURSALES_DATA
+       BRANCH SWITCHER
   ══════════════════════════════════════════════════════════ -->
   <div class="branch-bar" role="navigation" aria-label="Seleccionar sucursal">
     <div class="container">
       <div id="branch-switcher" class="branch-switcher" role="tablist"
            aria-label="Sucursales disponibles">
-
-        <!-- Las pestañas se generan por app.js → _renderSwitcher() -->
         <button class="switcher-tab activa" role="tab" data-sucursal="arboledas"
                 aria-selected="true">
           <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
@@ -163,7 +155,6 @@
           <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
           Centro Médico
         </button>
-
       </div>
     </div>
   </div>
@@ -171,8 +162,7 @@
   <main>
 
     <!-- ══════════════════════════════════════════════════════════
-         HERO — Imagen de fondo y título dinámico
-         La imagen, nombre y subtítulo se actualizan por sucursal
+         HERO
     ══════════════════════════════════════════════════════════ -->
     <section id="seccion-hero" class="hero"
              aria-label="Presentación Los Tocayos"
@@ -188,7 +178,6 @@
           <span class="title-tocayos">TOCAYOS</span>
         </h1>
 
-        <!-- Nombre y subtítulo de sucursal — actualizado dinámicamente -->
         <p class="hero-sucursal-label">
           <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
           Sucursal <span id="hero-sucursal-nombre">Arboledas</span>
@@ -233,7 +222,7 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
-         SECCIÓN PROMO — Contenido inyectado por components/promo.js
+         SECCIÓN PROMO
     ══════════════════════════════════════════════════════════ -->
     <section id="seccion-promo" class="promo-section"
              aria-label="Promoción del día">
@@ -241,7 +230,7 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
-         SECCIÓN MENÚ — Contenido inyectado por components/menu.js
+         SECCIÓN MENÚ
     ══════════════════════════════════════════════════════════ -->
     <section id="seccion-menu" class="menu-section"
              aria-label="Nuestro menú">
@@ -249,7 +238,7 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
-         SECCIÓN SUCURSALES — Inyectado por components/sucursales.js
+         SECCIÓN SUCURSALES
     ══════════════════════════════════════════════════════════ -->
     <section id="seccion-sucursales" class="sucursales-section"
              aria-label="Nuestras sucursales">
@@ -257,7 +246,7 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
-         SECCIÓN MAPA — Contenedor para Leaflet
+         SECCIÓN MAPA
     ══════════════════════════════════════════════════════════ -->
     <section class="map-section" aria-label="Mapa de sucursales">
       <div class="container">
@@ -266,7 +255,6 @@
           <h2 class="section-title">Estamos en toda la ZMG</h2>
         </div>
         <div class="map-wrapper">
-          <!-- Leaflet renderiza aquí vía components/mapa.js → renderMapa() -->
           <div id="mapa-sucursales"
                role="application"
                aria-label="Mapa interactivo con las sucursales de Los Tocayos">
@@ -280,51 +268,14 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
-         TESTIMONIOS — Contenido estático (actualízalos aquí)
-         ✏️  EDITAR: nombre, texto y colonia de cada reseña
+         SECCIÓN DEL CORRAL — Showcase de cortes premium
+         Reemplaza la sección de testimonios.
+         JS inyecta aquí vía renderCortes() (components/cortes.js).
+         Se llama una sola vez en DOMContentLoaded (no cambia por sucursal).
     ══════════════════════════════════════════════════════════ -->
-    <section id="seccion-testimonios" class="testimonios-section"
-             aria-label="Opiniones de clientes">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-badge">💬 Lo que dicen</span>
-          <h2 class="section-title">Clientes que no mienten</h2>
-        </div>
-
-        <div class="testimonios-grid" role="list">
-
-          <blockquote class="testimonio-card reveal" role="listitem">
-            <div class="stars" aria-label="5 estrellas">★★★★★</div>
-            <p>"Los mejores tacos de barbacoa que he probado en toda Guadalajara.
-               El consomé es una bendición. Ya no puedo ir a ninguna otra taquería."</p>
-            <footer>
-              <strong>— María González</strong>
-              <span>Col. Arboledas</span>
-            </footer>
-          </blockquote>
-
-          <blockquote class="testimonio-card reveal" role="listitem">
-            <div class="stars" aria-label="5 estrellas">★★★★★</div>
-            <p>"Voy cada fin de semana a la sucursal de Las Águilas. La calidad
-               es siempre la misma y el equipo es súper amable. 10/10."</p>
-            <footer>
-              <strong>— Roberto Sánchez</strong>
-              <span>Col. Las Águilas</span>
-            </footer>
-          </blockquote>
-
-          <blockquote class="testimonio-card reveal" role="listitem">
-            <div class="stars" aria-label="5 estrellas">★★★★★</div>
-            <p>"La barbacoa más jugosa que existe. Mi familia entera es fan.
-               La promo del lunes es una joya del universo. ¡No la cambien!"</p>
-            <footer>
-              <strong>— Carmen López</strong>
-              <span>Zona Centro Médico</span>
-            </footer>
-          </blockquote>
-
-        </div>
-      </div>
+    <section id="seccion-cortes" class="cortes-section"
+             aria-label="Del Corral Cortes Finos — Showcase de productos">
+      <!-- JS inyecta aquí vía renderCortes() -->
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
@@ -347,7 +298,8 @@
 
   <!-- ══════════════════════════════════════════════════════════
        FOOTER
-       ✏️  EDITAR: redes sociales, teléfonos, año (el año es automático)
+       La sección de contacto se rellena dinámicamente por
+       app.js → _renderFooterContactos() desde SUCURSALES_DATA.
   ══════════════════════════════════════════════════════════ -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
@@ -355,8 +307,7 @@
 
         <div class="footer-brand">
           <p class="footer-logo-text">LOS TOCAYOS</p>
-          <p class="footer-tagline">Barbacoa auténtica desde Jalisco.</p>
-          <!-- ✏️  EDITAR: URL de redes sociales -->
+          <p class="footer-tagline">Sabor con Distinción.</p>
           <div class="footer-social" aria-label="Redes sociales">
             <a href="https://www.facebook.com/lostocayos" target="_blank"
                rel="noopener noreferrer" aria-label="Facebook">
@@ -366,7 +317,7 @@
                rel="noopener noreferrer" aria-label="Instagram">
               <i class="fa-brands fa-instagram" aria-hidden="true"></i>
             </a>
-            <a href="https://wa.me/5213310000001" target="_blank"
+            <a href="https://wa.me/5213323324878" target="_blank"
                rel="noopener noreferrer" aria-label="WhatsApp">
               <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
             </a>
@@ -383,26 +334,24 @@
           </ul>
         </nav>
 
+        <!-- ✏️  Los teléfonos se renderizan dinámicamente desde
+             SUCURSALES_DATA vía app.js → _renderFooterContactos().
+             No edites el contenido de este div directamente. -->
         <div class="footer-contact">
           <h4>Contacto</h4>
-          <!-- ✏️  EDITAR: teléfonos reales -->
-          <p><i class="fa-solid fa-phone" aria-hidden="true"></i>
-             <a href="tel:+523310000001">(33) 1000-0001</a> · Arboledas</p>
-          <p><i class="fa-solid fa-phone" aria-hidden="true"></i>
-             <a href="tel:+523310000002">(33) 1000-0002</a> · Águilas</p>
-          <p><i class="fa-solid fa-phone" aria-hidden="true"></i>
-             <a href="tel:+523310000003">(33) 1000-0003</a> · Estancia</p>
-          <p><i class="fa-solid fa-phone" aria-hidden="true"></i>
-             <a href="tel:+523310000004">(33) 1000-0004</a> · Centro Médico</p>
-          <!-- ✏️  EDITAR: correo real -->
-          <p><i class="fa-solid fa-envelope" aria-hidden="true"></i>
-             <a href="mailto:hola@lostocayos.mx">hola@lostocayos.mx</a></p>
+          <div id="footer-contact-list">
+            <!-- app.js inyecta aquí los teléfonos de cada sucursal -->
+          </div>
+          <p>
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            <a href="mailto:contacto@lostocayos.mx">contacto@lostocayos.mx</a>
+          </p>
         </div>
 
         <div class="footer-hours">
           <h4>Horarios</h4>
-          <p><strong>Lunes a Domingo</strong><br />9:30 AM – 5:30 PM</p>
-          <p class="footer-note"></p>
+          <p><strong>Arboledas</strong><br />Lun – Dom · 9:30 – 17:30</p>
+          <p><strong>Resto de sucursales</strong><br />Lun – Sáb · 7:00 – 15:00</p>
         </div>
 
       </div>
@@ -417,12 +366,12 @@
   </footer>
 
   <!-- ══════════════════════════════════════════════════════════
-       CONTENEDOR DEL CARRITO — inyectado por components/carrito.js
+       CONTENEDOR DEL CARRITO
   ══════════════════════════════════════════════════════════ -->
   <div id="carrito-container"></div>
 
   <!-- ══════════════════════════════════════════════════════════
-       SCRIPTS — carga en orden: datos → componentes → app
+       SCRIPTS — orden: librerías → datos → componentes → app
   ══════════════════════════════════════════════════════════ -->
 
   <!-- 1. Leaflet JS -->
@@ -433,6 +382,7 @@
   <script src="data/sucursales.js"></script>
   <script src="data/menus.js"></script>
   <script src="data/promociones.js"></script>
+  <script src="data/cortes.js"></script>
 
   <!-- 3. Componentes -->
   <script src="components/carrito.js"></script>
@@ -440,8 +390,9 @@
   <script src="components/promo.js"></script>
   <script src="components/sucursales.js"></script>
   <script src="components/mapa.js"></script>
+  <script src="components/cortes.js"></script>
 
-  <!-- 4. Orquestador principal -->
+  <!-- 4. App (orquestador) — siempre el último -->
   <script src="app.js"></script>
 
 </body>
