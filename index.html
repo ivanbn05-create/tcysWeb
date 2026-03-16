@@ -1,23 +1,16 @@
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
-  <!-- ============================================================
-       LOS TOCAYOS — SPA Shell
-       Los metadatos SEO se actualizan dinámicamente por sucursal
-       vía app.js → _actualizarSEO()
-       ============================================================ -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <!-- SEO base — app.js lo sobreescribe al cargar cada sucursal -->
   <title>Los Tocayos | Tacos de Barbacoa — Guadalajara, Jalisco</title>
   <meta name="description"
         content="Los mejores tacos de barbacoa en Guadalajara. 4 sucursales en la ZMG: Arboledas, Las Águilas, La Estancia y Centro Médico." />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Los Tocayos" />
 
-  <!-- Open Graph base -->
   <meta property="og:type"        content="restaurant" />
   <meta property="og:site_name"   content="Los Tocayos" />
   <meta property="og:title"       content="Los Tocayos | Tacos de Barbacoa Guadalajara" />
@@ -26,13 +19,11 @@
   <meta property="og:url"         content="https://www.lostocayos.mx/" />
   <meta property="og:locale"      content="es_MX" />
 
-  <!-- Twitter Card base -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Los Tocayos | Tacos de Barbacoa" />
   <meta name="twitter:description" content="La barbacoa más rica de Guadalajara. 4 sucursales en la ZMG." />
   <meta name="twitter:image"       content="https://www.lostocayos.mx/img/og-cover.jpg" />
 
-  <!-- Schema.org base — se reemplaza dinámicamente por sucursal -->
   <script type="application/ld+json" id="schema-sucursal">
   {
     "@context": "https://schema.org",
@@ -46,29 +37,23 @@
   }
   </script>
 
-  <!-- Canonical — se actualiza dinámicamente -->
   <link rel="canonical" href="https://www.lostocayos.mx/" />
 
-  <!-- Fuentes tipográficas -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap"
         rel="stylesheet" />
 
-  <!-- Font Awesome -->
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Leaflet CSS -->
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
         crossorigin="anonymous" />
 
-  <!-- Estilos del proyecto -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Favicon -->
   <!-- <link rel="icon" type="image/png" href="img/favicon.png" /> -->
 </head>
 
@@ -96,28 +81,21 @@
           <li><a href="#seccion-promo">Promos</a></li>
           <li><a href="#seccion-menu">Menú</a></li>
           <li><a href="#seccion-sucursales">Sucursales</a></li>
-          <!-- Enlace a la sección de cortes — reemplaza "Opiniones" -->
           <li><a href="#seccion-cortes">Cortes</a></li>
-
-          <!-- Botón Del Corral → URL externa -->
           <li>
             <a href="https://TU-TIENDA-DE-CORTES.COM"
                class="nav-cta"
-               target="_blank"
-               rel="noopener noreferrer"
+               target="_blank" rel="noopener noreferrer"
                aria-label="Visitar tienda Del Corral Cortes Finos">
               <i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i>
               Del Corral
             </a>
           </li>
-
-          <!-- WhatsApp dinámico — href actualizado por app.js según sucursal activa -->
           <li>
             <a id="nav-wa-link"
                href="https://wa.me/5213323324878"
                class="nav-wa"
-               target="_blank"
-               rel="noopener noreferrer"
+               target="_blank" rel="noopener noreferrer"
                aria-label="Contactar por WhatsApp">
               <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
               <span class="nav-wa-texto">Contacto</span>
@@ -135,25 +113,17 @@
     <div class="container">
       <div id="branch-switcher" class="branch-switcher" role="tablist"
            aria-label="Sucursales disponibles">
-        <button class="switcher-tab activa" role="tab" data-sucursal="arboledas"
-                aria-selected="true">
-          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-          Arboledas
+        <button class="switcher-tab activa" role="tab" data-sucursal="arboledas" aria-selected="true">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Arboledas
         </button>
-        <button class="switcher-tab" role="tab" data-sucursal="aguilas"
-                aria-selected="false">
-          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-          Las Águilas
+        <button class="switcher-tab" role="tab" data-sucursal="aguilas" aria-selected="false">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Las Águilas
         </button>
-        <button class="switcher-tab" role="tab" data-sucursal="estancia"
-                aria-selected="false">
-          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-          La Estancia
+        <button class="switcher-tab" role="tab" data-sucursal="estancia" aria-selected="false">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i> La Estancia
         </button>
-        <button class="switcher-tab" role="tab" data-sucursal="centromedico"
-                aria-selected="false">
-          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-          Centro Médico
+        <button class="switcher-tab" role="tab" data-sucursal="centromedico" aria-selected="false">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Centro Médico
         </button>
       </div>
     </div>
@@ -175,7 +145,13 @@
 
         <h1 class="hero-title">
           <span class="title-los">LOS</span>
-          <span class="title-tocayos">TOCAYOS</span>
+          <!--
+            .big-t hace la T de TOCAYOS levemente más grande (1.15em).
+            Funciona aquí porque este span usa color sólido (--rojo).
+            El logo del navbar/footer usa background-clip:text con
+            gradiente calibrado, por lo que se deja sin modificar.
+          -->
+          <span class="title-tocayos"><span class="big-t">T</span>OCAYOS</span>
         </h1>
 
         <p class="hero-sucursal-label">
@@ -223,10 +199,10 @@
 
     <!-- ══════════════════════════════════════════════════════════
          SECCIÓN PROMO
+         promo.js inyecta aquí: promos + panel de descargas
     ══════════════════════════════════════════════════════════ -->
     <section id="seccion-promo" class="promo-section"
              aria-label="Promoción del día">
-      <!-- JS inyecta aquí vía renderPromos() -->
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
@@ -234,7 +210,6 @@
     ══════════════════════════════════════════════════════════ -->
     <section id="seccion-menu" class="menu-section"
              aria-label="Nuestro menú">
-      <!-- JS inyecta aquí vía renderMenu() -->
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
@@ -242,7 +217,6 @@
     ══════════════════════════════════════════════════════════ -->
     <section id="seccion-sucursales" class="sucursales-section"
              aria-label="Nuestras sucursales">
-      <!-- JS inyecta aquí vía renderSucursales() -->
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
@@ -251,7 +225,10 @@
     <section class="map-section" aria-label="Mapa de sucursales">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-badge">🗺️ Mapa</span>
+          <span class="section-badge">
+            <i class="fa-solid fa-map" aria-hidden="true"></i>
+            Mapa
+          </span>
           <h2 class="section-title">Estamos en toda la ZMG</h2>
         </div>
         <div class="map-wrapper">
@@ -269,22 +246,23 @@
 
     <!-- ══════════════════════════════════════════════════════════
          SECCIÓN DEL CORRAL — Showcase de cortes premium
-         Reemplaza la sección de testimonios.
-         JS inyecta aquí vía renderCortes() (components/cortes.js).
-         Se llama una sola vez en DOMContentLoaded (no cambia por sucursal).
     ══════════════════════════════════════════════════════════ -->
     <section id="seccion-cortes" class="cortes-section"
              aria-label="Del Corral Cortes Finos — Showcase de productos">
-      <!-- JS inyecta aquí vía renderCortes() -->
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
          CTA FINAL
+         Usa .cta-verde y .cta-rojo (definidos en styles-extras.css)
+         para corregir el split de colores en "¿Ya te ganó el hambre?"
+         sin depender de la calibración del gradiente por %.
     ══════════════════════════════════════════════════════════ -->
     <section class="cta-section" aria-label="Llamada a la acción">
       <div class="container">
         <div class="cta-inner reveal">
-          <h2 class="cta-title">¿Ya te ganó el hambre?</h2>
+          <h2 class="cta-title">
+            <span class="cta-verde">¿Ya te</span><span class="cta-rojo"> ganó el hambre?</span>
+          </h2>
           <p class="cta-sub">Encuentra tu sucursal más cercana y ven a probar la diferencia.</p>
           <a href="#seccion-sucursales" class="btn btn-primary btn-xl">
             <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
@@ -298,8 +276,8 @@
 
   <!-- ══════════════════════════════════════════════════════════
        FOOTER
-       La sección de contacto se rellena dinámicamente por
-       app.js → _renderFooterContactos() desde SUCURSALES_DATA.
+       · Teléfonos  → app.js → _renderFooterContactos()
+       · Horarios   → app.js → _renderFooterHorarios()
   ══════════════════════════════════════════════════════════ -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
@@ -334,24 +312,25 @@
           </ul>
         </nav>
 
-        <!-- ✏️  Los teléfonos se renderizan dinámicamente desde
-             SUCURSALES_DATA vía app.js → _renderFooterContactos().
-             No edites el contenido de este div directamente. -->
         <div class="footer-contact">
           <h4>Contacto</h4>
           <div id="footer-contact-list">
-            <!-- app.js inyecta aquí los teléfonos de cada sucursal -->
+            <!-- app.js → _renderFooterContactos() inyecta aquí -->
           </div>
           <p>
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-            <a href="mailto:contacto@lostocayos.mx">contacto@lostocayos.mx</a>
+            <a href="mailto:hola@lostocayos.mx">hola@lostocayos.mx</a>
           </p>
         </div>
 
+        <!-- ✏️  Los horarios se renderizan dinámicamente desde
+             SUCURSALES_DATA vía app.js → _renderFooterHorarios().
+             No edites el contenido de este div directamente. -->
         <div class="footer-hours">
           <h4>Horarios</h4>
-          <p><strong>Arboledas</strong><br />Lun – Dom · 9:30 – 17:30</p>
-          <p><strong>Resto de sucursales</strong><br />Lun – Sáb · 7:00 – 15:00</p>
+          <div id="footer-hours-list">
+            <!-- app.js → _renderFooterHorarios() inyecta aquí -->
+          </div>
         </div>
 
       </div>
@@ -365,26 +344,17 @@
     </div>
   </footer>
 
-  <!-- ══════════════════════════════════════════════════════════
-       CONTENEDOR DEL CARRITO
-  ══════════════════════════════════════════════════════════ -->
   <div id="carrito-container"></div>
 
-  <!-- ══════════════════════════════════════════════════════════
-       SCRIPTS — orden: librerías → datos → componentes → app
-  ══════════════════════════════════════════════════════════ -->
-
-  <!-- 1. Leaflet JS -->
+  <!-- SCRIPTS — orden: librerías → datos → componentes → app -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
           crossorigin="anonymous"></script>
 
-  <!-- 2. Datos (fuente única de verdad) -->
   <script src="data/sucursales.js"></script>
   <script src="data/menus.js"></script>
   <script src="data/promociones.js"></script>
   <script src="data/cortes.js"></script>
 
-  <!-- 3. Componentes -->
   <script src="components/carrito.js"></script>
   <script src="components/menu.js"></script>
   <script src="components/promo.js"></script>
@@ -392,7 +362,6 @@
   <script src="components/mapa.js"></script>
   <script src="components/cortes.js"></script>
 
-  <!-- 4. App (orquestador) — siempre el último -->
   <script src="app.js"></script>
 
 </body>

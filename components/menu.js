@@ -3,10 +3,10 @@
  * LOS TOCAYOS — components/menu.js
  * Renderiza la sección de menú de forma dinámica.
  *
- * · Filtra items con visible === false (promo-exclusivos).
- * · Botón "Agregar" → stepper inline de cantidad antes de
- *   añadir al carrito. El usuario elige cuántos quiere
- *   directamente en la tarjeta, sin abrir el drawer.
+ * · Selector de platos (1–10) encima del grid de productos.
+ * · Auto-add: si el usuario no cambia la cantidad (queda en 1),
+ *   el producto se agrega automáticamente tras 2.5 segundos.
+ * · Hint/tutorial dismissable sobre el sistema de platos.
  * ================================================================
  */
 
@@ -18,9 +18,11 @@ function _escM(s) {
           .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
 }
 
-/* ─── Helpers de stepper ────────────────────────────────────────── */
+let _autoAddTimer = null;
+function _clearAutoTimer() {
+  if (_autoAddTimer) { clearTimeout(_autoAddTimer); _autoAddTimer = null; }
+}
 
-/** Abre el stepper de una tarjeta, cerrando cualquier otro abierto. */
 function _abrirStepper(accionEl) {
   document.querySelectorAll('.card-accion.activo').forEach(el => {
     if (el !== accionEl) _cerrarStepper(el);
@@ -28,20 +30,38 @@ function _abrirStepper(accionEl) {
   accionEl.classList.add('activo');
   const qtyEl = accionEl.querySelector('.stepper-qty');
   if (qtyEl) qtyEl.textContent = '1';
+
+  const okBtn = accionEl.querySelector('.stepper-ok');
+  if (okBtn) {
+    okBtn.querySelector('.stepper-auto-progress')?.remove();
+    okBtn.style.position = 'relative';
+    okBtn.style.overflow = 'hidden';
+    const bar = document.createElement('div');
+    bar.className = 'stepper-auto-progress';
+    okBtn.appendChild(bar);
+  }
+
+  _clearAutoTimer();
+  _autoAddTimer = setTimeout(() => {
+    if (accionEl.classList.contains('activo') && _getQty(accionEl) === 1) {
+      _confirmarAgregar(accionEl);
+    }
+  }, 2500);
 }
 
-/** Cierra el stepper y restaura el botón "Agregar". */
 function _cerrarStepper(accionEl) {
+  _clearAutoTimer();
+  accionEl.querySelector('.stepper-auto-progress')?.remove();
   accionEl.classList.remove('activo');
 }
 
-/** Lee la cantidad actual del stepper (mínimo 1). */
 function _getQty(accionEl) {
   return parseInt(accionEl.querySelector('.stepper-qty')?.textContent ?? '1', 10) || 1;
 }
 
-/** Incrementa o decrementa la cantidad (rango 1–99). */
 function _setQty(accionEl, delta) {
+  _clearAutoTimer();
+  accionEl.querySelector('.stepper-auto-progress')?.remove();
   const qtyEl = accionEl.querySelector('.stepper-qty');
   if (!qtyEl) return;
   qtyEl.textContent = String(
@@ -49,62 +69,44 @@ function _setQty(accionEl, delta) {
   );
 }
 
-/* ─── Manejadores de evento (declarados fuera para poder removerlos) */
+function _confirmarAgregar(accionEl) {
+  _clearAutoTimer();
+  const cantidad   = _getQty(accionEl);
+  const productoId = accionEl?.dataset.productoId;
+  const sucursalId = window.App?.sucursalActualId ?? 'arboledas';
+  const todos      = MENUS_DATA[sucursalId] ?? [];
+  const producto   = todos.find(p => p.id === productoId);
+
+  if (!producto || typeof Carrito === 'undefined') return;
+
+  Carrito.agregar(producto, cantidad);
+
+  const btnOk = accionEl.querySelector('.stepper-ok');
+  if (btnOk) {
+    const originalHTML = btnOk.innerHTML;
+    btnOk.innerHTML = '<i class="fa-solid fa-circle-check" aria-hidden="true"></i>';
+    btnOk.classList.add('stepper-ok--done');
+    btnOk.disabled = true;
+    setTimeout(() => {
+      _cerrarStepper(accionEl);
+      btnOk.innerHTML = originalHTML;
+      btnOk.classList.remove('stepper-ok--done');
+      btnOk.disabled = false;
+    }, 1100);
+  } else {
+    _cerrarStepper(accionEl);
+  }
+}
 
 function _onMenuClick(e) {
-  /* Botón "Agregar" → abre stepper */
   const btnAgregar = e.target.closest('.btn-card-agregar');
-  if (btnAgregar) {
-    e.stopPropagation();
-    const accion = btnAgregar.closest('.card-accion');
-    if (accion) _abrirStepper(accion);
-    return;
-  }
-
-  /* Botón "−" */
+  if (btnAgregar) { e.stopPropagation(); const a = btnAgregar.closest('.card-accion'); if (a) _abrirStepper(a); return; }
   const btnMenos = e.target.closest('.stepper-menos');
-  if (btnMenos) {
-    e.stopPropagation();
-    _setQty(btnMenos.closest('.card-accion'), -1);
-    return;
-  }
-
-  /* Botón "+" */
+  if (btnMenos) { e.stopPropagation(); _setQty(btnMenos.closest('.card-accion'), -1); return; }
   const btnMas = e.target.closest('.stepper-mas');
-  if (btnMas) {
-    e.stopPropagation();
-    _setQty(btnMas.closest('.card-accion'), +1);
-    return;
-  }
-
-  /* Botón "✓" → confirmar y agregar N ítems */
+  if (btnMas) { e.stopPropagation(); _setQty(btnMas.closest('.card-accion'), +1); return; }
   const btnOk = e.target.closest('.stepper-ok');
-  if (btnOk) {
-    e.stopPropagation();
-    const accion     = btnOk.closest('.card-accion');
-    const cantidad   = _getQty(accion);
-    const productoId = accion?.dataset.productoId;
-
-    const sucursalId = window.App?.sucursalActualId ?? 'arboledas';
-    const todos      = MENUS_DATA[sucursalId] ?? [];
-    const producto   = todos.find(p => p.id === productoId);
-
-    if (producto && typeof Carrito !== 'undefined') {
-      Carrito.agregar(producto, cantidad);
-
-      const originalHTML = btnOk.innerHTML;
-      btnOk.innerHTML = '<i class="fa-solid fa-circle-check" aria-hidden="true"></i>';
-      btnOk.classList.add('stepper-ok--done');
-      btnOk.disabled = true;
-
-      setTimeout(() => {
-        _cerrarStepper(accion);
-        btnOk.innerHTML = originalHTML;
-        btnOk.classList.remove('stepper-ok--done');
-        btnOk.disabled = false;
-      }, 1100);
-    }
-  }
+  if (btnOk) { e.stopPropagation(); const a = btnOk.closest('.card-accion'); if (a) _confirmarAgregar(a); return; }
 }
 
 function _onDocClick(e) {
@@ -113,49 +115,101 @@ function _onDocClick(e) {
   }
 }
 
-/* ─── Render principal ──────────────────────────────────────────── */
+function _renderPlatoSelector() {
+  const platoActual = (typeof Carrito !== 'undefined') ? Carrito.platoActual : 1;
+  const botones = Array.from({ length: 10 }, (_, i) => i + 1)
+    .map(n => `<button class="plato-btn${n === platoActual ? ' activo' : ''}" data-plato="${n}" aria-label="Plato ${n}" aria-pressed="${n === platoActual}">${n}</button>`)
+    .join('');
 
-/**
- * Renderiza la sección de menú para una sucursal.
- * @param {string}  sucursalId
- * @param {boolean} mostrarCarrito  - true si la sucursal tiene carrito activo
- */
+  return `
+    <div class="plato-selector-wrap" id="plato-selector-wrap">
+      <div class="menu-hint hint-oculto" id="menu-hint-platos" role="status" aria-live="polite">
+        <span>
+          <strong>¿Cómo funciona?</strong> Selecciona el número de plato antes de agregar.
+          Cada plato agrupa tus productos por separado en el mensaje de WhatsApp,
+          ideal para pedidos en grupo. Puedes cambiar de plato en cualquier momento.
+        </span>
+        <button class="menu-hint-close" aria-label="Cerrar sugerencia">×</button>
+      </div>
+      <div class="plato-selector" role="group" aria-label="Seleccionar plato activo">
+        <span class="plato-selector-label">
+          <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+          Plato:
+        </span>
+        <div class="plato-btns" id="plato-btns">${botones}</div>
+        <button class="plato-hint-toggle" id="plato-hint-toggle"
+                aria-label="Ayuda sobre los platos">?</button>
+      </div>
+    </div>`;
+}
+
+function _bindPlatoSelector(seccion) {
+  seccion.querySelectorAll('.plato-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (typeof Carrito !== 'undefined') {
+        Carrito.platoActual = parseInt(btn.dataset.plato, 10);
+        Carrito._actualizar();
+      }
+    });
+  });
+}
+
+const HINT_KEY_PLATOS = 'tcy-hint-platos-ok';
+
+function _iniciarHintPlatos(seccion) {
+  const hint = seccion.querySelector('#menu-hint-platos');
+  if (!hint || sessionStorage.getItem(HINT_KEY_PLATOS)) return;
+
+  setTimeout(() => hint.classList.remove('hint-oculto'), 400);
+
+  hint.querySelector('.menu-hint-close')?.addEventListener('click', () => {
+    hint.classList.add('hint-ocultando');
+    setTimeout(() => hint.classList.add('hint-oculto'), 300);
+    sessionStorage.setItem(HINT_KEY_PLATOS, '1');
+  });
+
+  seccion.querySelector('#plato-hint-toggle')?.addEventListener('click', () => {
+    if (hint.classList.contains('hint-oculto')) {
+      hint.classList.remove('hint-oculto', 'hint-ocultando');
+    } else {
+      hint.classList.add('hint-ocultando');
+      setTimeout(() => hint.classList.add('hint-oculto'), 300);
+    }
+  });
+}
+
 function renderMenu(sucursalId, mostrarCarrito) {
   const seccion = document.getElementById('seccion-menu');
   if (!seccion) return;
 
-  /* Filtrar: solo productos con visible !== false */
   const items = (MENUS_DATA[sucursalId] ?? []).filter(item => item.visible !== false);
 
   if (!items.length) {
-    seccion.innerHTML = '<p style="text-align:center;padding:3rem;color:var(--crema-soft)">Menú no disponible para esta sucursal.</p>';
+    seccion.innerHTML = `<p style="text-align:center;padding:3rem;color:var(--muted)">Menú no disponible para esta sucursal.</p>`;
     return;
   }
 
   const tarjetas = items.map(item => {
     const accionHTML = (mostrarCarrito && item.enCarrito)
       ? `<div class="card-accion" data-producto-id="${_escM(item.id)}">
-          <button class="btn-card-agregar"
-                  aria-label="Agregar ${_escM(item.nombre)} al pedido">
+          <button class="btn-card-agregar" aria-label="Agregar ${_escM(item.nombre)} al pedido">
             <i class="fa-solid fa-plus" aria-hidden="true"></i>
             <span>Agregar</span>
           </button>
           <div class="card-stepper" role="group" aria-label="Seleccionar cantidad">
             <button class="stepper-btn stepper-menos" aria-label="Restar uno">−</button>
             <span class="stepper-qty" aria-live="polite">1</span>
-            <button class="stepper-btn stepper-mas"   aria-label="Sumar uno">+</button>
-            <button class="stepper-btn stepper-ok"    aria-label="Agregar al carrito">
+            <button class="stepper-btn stepper-mas" aria-label="Sumar uno">+</button>
+            <button class="stepper-btn stepper-ok" aria-label="Agregar al carrito">
               <i class="fa-solid fa-check" aria-hidden="true"></i>
             </button>
           </div>
-        </div>`
-      : '';
+        </div>` : '';
 
     return `
       <article class="menu-card reveal" role="listitem" data-id="${_escM(item.id)}">
         <div class="menu-img-wrap">
-          <img src="${_escM(item.imagen)}"
-               alt="${_escM(item.nombre)} — Los Tocayos"
+          <img src="${_escM(item.imagen)}" alt="${_escM(item.nombre)} — Los Tocayos"
                loading="lazy" width="600" height="375"
                onerror="this.src='img/menu/placeholder.jpg'" />
           ${item.badge ? `<span class="menu-badge-hot">${_escM(item.badge)}</span>` : ''}
@@ -175,23 +229,25 @@ function renderMenu(sucursalId, mostrarCarrito) {
   seccion.innerHTML = `
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-badge">🥩 Lo más pedido</span>
+        <span class="section-badge">
+          <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+          Lo más pedido
+        </span>
         <h2 class="section-title">Nuestro Menú</h2>
         <p class="section-sub">Todo preparado fresh, cada mañana, sin excepción.</p>
       </div>
-      <div class="menu-grid" role="list">
-        ${tarjetas}
-      </div>
+      ${mostrarCarrito ? _renderPlatoSelector() : ''}
+      <div class="menu-grid" role="list">${tarjetas}</div>
     </div>`;
 
-  /* Remover listeners anteriores antes de añadir nuevos
-     (evita acumulación al cambiar de sucursal) */
   seccion.removeEventListener('click', _onMenuClick);
   document.removeEventListener('click', _onDocClick);
 
   if (mostrarCarrito) {
     seccion.addEventListener('click', _onMenuClick);
     document.addEventListener('click', _onDocClick);
+    _bindPlatoSelector(seccion);
+    _iniciarHintPlatos(seccion);
   }
 
   if (window.App?.reObservar) window.App.reObservar(seccion);

@@ -9,9 +9,17 @@
  *   4 = Jueves   |  5 = Viernes  |  6 = Sábado
  *
  *   Valores posibles por día:
- *   · null        → Sin promo (Sáb y Dom por defecto)
+ *   · null        → Sin promo
  *   · { }         → 1 promo
  *   · [ {}, {} ]  → 2 promos (se muestran lado a lado)
+ *
+ *   icono: usa clases de Font Awesome 6, por ejemplo:
+ *     'fa-solid fa-utensils'          → tenedor y cuchillo
+ *     'fa-solid fa-fire-flame-curved' → llama de fuego
+ *     'fa-solid fa-glass-water'       → vaso
+ *     'fa-solid fa-layer-group'       → capas / orden
+ *     'fa-solid fa-tag'               → etiqueta de precio
+ *   Consulta https://fontawesome.com/icons para más opciones.
  *
  *   productoId (opcional):
  *   · Si la sucursal tiene carrito (tieneCarrito: true), se muestra
@@ -26,8 +34,8 @@
 const PROMOS_BASE = {
 
   promoLonche: {
-    productoId: 'td',   // ← producto que se agrega al carrito
-    icono: '🌮',
+    productoId: 'td',
+    icono: 'fa-solid fa-utensils',
     titulo: 'Taco y Lonche',
     descripcion: 'Un taco y un lonche con queso a precio especial de 84 pesos',
     disclaimer: '*Sólo para Barbacoa; taco sin queso.',
@@ -35,7 +43,7 @@ const PROMOS_BASE = {
 
   promoAgua: {
     productoId: 'td',
-    icono: '🥤',
+    icono: 'fa-solid fa-glass-water',
     titulo: 'Taco y Bebida',
     descripcion: 'Tres tacos y una bebida por 84 pesos.',
     disclaimer: '*Agua fresca de medio litro o refresco.',
@@ -43,7 +51,7 @@ const PROMOS_BASE = {
 
   promoTacos: {
     productoId: 'promoMartes1',
-    icono: '🌯',
+    icono: 'fa-solid fa-layer-group',
     titulo: 'Orden 4 Tacos',
     descripcion: 'Cuatro tacos al gusto',
     disclaimer: '*Sólo para Barbacoa; sin queso.',
@@ -51,7 +59,7 @@ const PROMOS_BASE = {
 
   promoBistek: {
     productoId: 'tk',
-    icono: '🔥',
+    icono: 'fa-solid fa-fire-flame-curved',
     titulo: 'Orden 3 de Bistek',
     descripcion: 'Tres tacos de bistek.',
     disclaimer: '*Sin queso.',
@@ -67,10 +75,8 @@ const PROMOCIONES_DATA = {
   arboledas: {
     0: null,
     1: PROMOS_BASE.promoAgua,
-    2: [PROMOS_BASE.promoLonche,
-        PROMOS_BASE.promoTacos],
-    3: [PROMOS_BASE.promoLonche,
-        PROMOS_BASE.promoTacos],
+    2: [PROMOS_BASE.promoLonche, PROMOS_BASE.promoTacos],
+    3: [PROMOS_BASE.promoLonche, PROMOS_BASE.promoTacos],
     4: PROMOS_BASE.promoAgua,
     5: PROMOS_BASE.promoBistek,
     6: null,
@@ -78,34 +84,16 @@ const PROMOCIONES_DATA = {
 
   /* ── Las Águilas ────────────────────────────────────────────── */
   aguilas: {
-    0: null,
-    1: null,
-    2: null,
-    3: null,
-    4: null,
-    5: null,
-    6: null,
+    0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null,
   },
 
   /* ── La Estancia ────────────────────────────────────────────── */
   estancia: {
-    0: null,
-    1: null,
-    2: null,
-    3: null,
-    4: null,
-    5: null,
-    6: null,
+    0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null,
   },
 
   /* ── Zona Centro Médico ─────────────────────────────────────── */
   centromedico: {
-   0: null,
-    1: null,
-    2: null,
-    3: null,
-    4: null,
-    5: null,
-    6: null,
+    0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null,
   },
 };

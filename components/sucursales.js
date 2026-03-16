@@ -13,7 +13,6 @@ function _e(s) {
           .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
 }
 
-/** Renderiza todas las tarjetas de sucursales */
 function renderSucursales(sucursalActivaId) {
   const seccion = document.getElementById('seccion-sucursales');
   if (!seccion) return;
@@ -33,7 +32,12 @@ function renderSucursales(sucursalActivaId) {
           </div>
         </div>
 
-        ${esActiva ? '<div class="sucursal-activa-tag">📍 Viendo esta sucursal</div>' : ''}
+        ${esActiva
+          ? `<div class="sucursal-activa-tag">
+               <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+               Viendo esta sucursal
+             </div>`
+          : ''}
 
         <h3 class="sucursal-name">${_e(s.nombre)}</h3>
         <address class="sucursal-addr">
@@ -77,7 +81,10 @@ function renderSucursales(sucursalActivaId) {
   seccion.innerHTML = `
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-badge">📍 Encuéntranos</span>
+        <span class="section-badge">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          Encuéntranos
+        </span>
         <h2 class="section-title">Nuestras Sucursales</h2>
         <p class="section-sub">4 puntos en la Zona Metropolitana de Guadalajara</p>
       </div>
@@ -97,71 +104,46 @@ function renderSucursales(sucursalActivaId) {
       </div>
     </div>`;
 
-  // Bind botones "Ver esta sucursal"
   seccion.querySelectorAll('[data-goto]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      window.App?.navegarA(btn.dataset.goto);
-    });
+    btn.addEventListener('click', () => window.App?.navegarA(btn.dataset.goto));
   });
 
-  // Bind botón de geolocalización
   document.getElementById('btn-nearest')
     ?.addEventListener('click', iniciarGeolocalizacion);
 
-  // Actualizar estados abierto/cerrado usando los horarios del data
   _actualizarEstados();
 
   if (window.App?.reObservar) window.App.reObservar(seccion);
 }
 
-/**
- * Actualiza el indicador abierto/cerrado de cada tarjeta de sucursal
- * leyendo el campo `horarios` de SUCURSALES_DATA para esa sucursal.
- *
- * Cada tarjeta tiene `data-sucursal-id` → consultamos SUCURSALES_DATA[id].horarios[diaActual].
- * Si el elemento es null → cerrado.
- * Si tiene { abre, cierra } → abierto si la hora actual está dentro del rango.
- */
 function _actualizarEstados() {
   const ahora   = new Date();
-  const diaHoy  = ahora.getDay();                              // 0 Dom … 6 Sáb
-  const horaHoy = ahora.getHours() + ahora.getMinutes() / 60; // decimal, ej. 13.5
+  const diaHoy  = ahora.getDay();
+  const horaHoy = ahora.getHours() + ahora.getMinutes() / 60;
 
   document.querySelectorAll('.sucursal-card').forEach(card => {
     const sucursalId = card.dataset.sucursalId;
-    const sucursal   = typeof SUCURSALES_DATA !== 'undefined'
-                       ? SUCURSALES_DATA[sucursalId]
-                       : null;
-
-    const statusEl = card.querySelector('.sucursal-status');
-    const dotEl    = card.querySelector('.status-dot');
-    const labelEl  = card.querySelector('.status-label');
+    const sucursal   = typeof SUCURSALES_DATA !== 'undefined' ? SUCURSALES_DATA[sucursalId] : null;
+    const statusEl   = card.querySelector('.sucursal-status');
+    const dotEl      = card.querySelector('.status-dot');
+    const labelEl    = card.querySelector('.status-label');
     if (!statusEl || !dotEl || !labelEl) return;
 
-    /* Determinar si abre hoy y si la hora actual está dentro del rango */
     let estaAbierto = false;
     let labelTexto  = 'Cerrado';
 
     if (sucursal?.horarios) {
-      const turno = sucursal.horarios[diaHoy]; // null o { abre, cierra }
-
+      const turno = sucursal.horarios[diaHoy];
       if (turno) {
-        /* Parsear "HH:MM" → número decimal */
-        const [abreH,  abreM]   = turno.abre.split(':').map(Number);
+        const [abreH, abreM]     = turno.abre.split(':').map(Number);
         const [cierraH, cierraM] = turno.cierra.split(':').map(Number);
-        const abre   = abreH  + abreM   / 60;
+        const abre   = abreH   + abreM   / 60;
         const cierra = cierraH + cierraM / 60;
-
         estaAbierto = horaHoy >= abre && horaHoy < cierra;
-
         if (!estaAbierto) {
-          /* Si aún no ha abierto, mostrar hora de apertura */
-          labelTexto = horaHoy < abre
-            ? `Abre a las ${turno.abre}`
-            : 'Cerrado por hoy';
+          labelTexto = horaHoy < abre ? `Abre a las ${turno.abre}` : 'Cerrado por hoy';
         }
       }
-      /* turno === null → descanso ese día → labelTexto ya es 'Cerrado' */
     }
 
     if (estaAbierto) {
@@ -182,7 +164,6 @@ function _actualizarEstados() {
   });
 }
 
-/* ── Geolocalización ────────────────────────────────────────────── */
 function gradosARadianes(d) { return d * Math.PI / 180; }
 
 function haversine(la1, lo1, la2, lo2) {
@@ -221,7 +202,9 @@ function iniciarGeolocalizacion() {
 
       resultDiv.innerHTML = `
         <div class="nearest-card">
-          <span class="nearest-icon" aria-hidden="true">📍</span>
+          <span class="nearest-icon" aria-hidden="true">
+            <i class="fa-solid fa-location-dot"></i>
+          </span>
           <div class="nearest-info">
             <h4>${sucursal.nombre}</h4>
             <p>${sucursal.direccion}</p>

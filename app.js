@@ -220,6 +220,21 @@ function _renderFooterContactos() {
   }).join('');
 }
 
+/**
+ * Rellena dinámicamente los horarios del footer
+ * leyendo los datos reales de SUCURSALES_DATA.
+ * En index.html el div debe tener id="footer-hours-list".
+ */
+function _renderFooterHorarios() {
+  const lista = document.getElementById('footer-hours-list');
+  if (!lista || typeof SUCURSALES_DATA === 'undefined') return;
+
+  lista.innerHTML = SUCURSALES_ORDEN.map(id => {
+    const s = SUCURSALES_DATA[id];
+    return `<p><strong>${s.nombre}</strong><br />${s.horario}</p>`;
+  }).join('');
+}
+
 /* ── Navbar: scroll shrink + hamburguesa ───────────────────────── */
 function _initNavbar() {
   const navbar = document.querySelector('.navbar');
@@ -303,6 +318,7 @@ function _actualizarNavWA(sucursal) {
 document.addEventListener('DOMContentLoaded', () => {
   _initFooter();
   _renderFooterContactos();   // ← rellena teléfonos del footer desde SUCURSALES_DATA
+  _renderFooterHorarios();    // ← rellena horarios del footer desde SUCURSALES_DATA
   _initNavbar();
   _initSwitcher();
   _initSmoothScroll();
