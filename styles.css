@@ -1747,7 +1747,7 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
 
 /* Panel de descargas compacto */
 .descargas-mini-panel {
-  background: var(--negro);
+  background: var(--rojo);
   border: 1.5px solid var(--negro);
   border-radius: var(--radius);
   padding: 1rem;
@@ -1762,7 +1762,7 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
+  color: var(--blanco);
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -1777,8 +1777,8 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
   align-items: center;
   gap: 0.6rem;
   padding: 0.6rem 0.75rem;
-  background: rgba(255,255,255,0.06);
-  color: var(--blanco);
+  background: var(--blanco);
+  color: var(--negro);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius);
   text-decoration: none;
@@ -1788,11 +1788,11 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
   letter-spacing: 0.04em;
   text-transform: uppercase;
   transition: background var(--trans), border-color var(--trans), transform var(--trans);
-  -webkit-text-fill-color: var(--blanco);
+  -webkit-text-fill-color: var(--negro);
 }
 .descarga-mini-btn:hover {
-  background: var(--rojo);
-  border-color: var(--rojo);
+  /* background: var(--rojo); */
+  border-color: var(--negro);
   transform: translateX(2px);
 }
 .descarga-mini-btn i:first-child { font-size: 0.8rem; flex-shrink: 0; }

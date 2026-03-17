@@ -328,15 +328,48 @@ const MENUS_DATA = {
   /* ── Las Águilas ────────────────────────────────────────────── */
   aguilas: [
     ITEMS_BASE.tacoBarbacoa,
+    ITEMS_BASE.tacoBarbacoaConQueso,
+    ITEMS_BASE.tacoBarbacoaPlanchado,
+    ITEMS_BASE.tacoBarbacoaPlanchadoConQueso,
+    ITEMS_BASE.loncheBarbacoaConQueso,
+    ITEMS_BASE.barbacoaMedio,
+    ITEMS_BASE.barbacoaLitro,
+    ITEMS_BASE.consomeVaso,
+    ITEMS_BASE.consomeMedio,
+    ITEMS_BASE.consomeLitro,
+    ITEMS_BASE.aguasFrescasLitro,
+    ITEMS_BASE.aguasFrescasMedio,
   ],
 
   /* ── La Estancia ────────────────────────────────────────────── */
   estancia: [
     ITEMS_BASE.tacoBarbacoa,
+    ITEMS_BASE.tacoBarbacoaConQueso,
+    ITEMS_BASE.tacoBarbacoaPlanchado,
+    ITEMS_BASE.tacoBarbacoaPlanchadoConQueso,
+    ITEMS_BASE.loncheBarbacoaConQueso,
+    ITEMS_BASE.barbacoaMedio,
+    ITEMS_BASE.barbacoaLitro,
+    ITEMS_BASE.consomeVaso,
+    ITEMS_BASE.consomeMedio,
+    ITEMS_BASE.consomeLitro,
+    ITEMS_BASE.aguasFrescasLitro,
+    ITEMS_BASE.aguasFrescasMedio,
   ],
 
   /* ── Zona Centro Médico ─────────────────────────────────────── */
   centromedico: [
     ITEMS_BASE.tacoBarbacoa,
+    ITEMS_BASE.tacoBarbacoaConQueso,
+    ITEMS_BASE.tacoBarbacoaPlanchado,
+    ITEMS_BASE.tacoBarbacoaPlanchadoConQueso,
+    ITEMS_BASE.loncheBarbacoaConQueso,
+    ITEMS_BASE.barbacoaMedio,
+    ITEMS_BASE.barbacoaLitro,
+    ITEMS_BASE.consomeVaso,
+    ITEMS_BASE.consomeMedio,
+    ITEMS_BASE.consomeLitro,
+    ITEMS_BASE.aguasFrescasLitro,
+    ITEMS_BASE.aguasFrescasMedio,
   ],
 };
