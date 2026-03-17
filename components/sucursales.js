@@ -13,6 +13,18 @@ function _e(s) {
           .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
 }
 
+/**
+ * Formatea el nombre de una sucursal con estilo de marca:
+ * primera palabra en verde, segunda en rojo.
+ * Ej: "Las Águilas" → <span class="suc-verde">Las</span> <span class="suc-rojo">Águilas</span>
+ */
+function _nombreMarca(nombre) {
+  const partes = nombre.split(' ');
+  const primera = _e(partes[0]);
+  const resto   = _e(partes.slice(1).join(' '));
+  return `<span class="suc-verde">${primera}</span> <span class="suc-rojo">${resto}</span>`;
+}
+
 function renderSucursales(sucursalActivaId) {
   const seccion = document.getElementById('seccion-sucursales');
   if (!seccion) return;
@@ -39,7 +51,7 @@ function renderSucursales(sucursalActivaId) {
              </div>`
           : ''}
 
-        <h3 class="sucursal-name">${_e(s.nombre)}</h3>
+        <h3 class="sucursal-name">${_nombreMarca(s.nombre)}</h3>
         <address class="sucursal-addr">
           <i class="fa-solid fa-map-pin" aria-hidden="true"></i>
           ${_e(s.direccion)}

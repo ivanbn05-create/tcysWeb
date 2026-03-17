@@ -223,7 +223,7 @@ function renderCarritoUI() {
       </div>
       <div class="carrito-sucursal-tag">
         <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-        Sucursal Arboledas
+        Sucursal Mariano Otero
       </div>
       <div id="carrito-panel" class="carrito-panel" role="region" aria-live="polite"></div>
     </aside>`;

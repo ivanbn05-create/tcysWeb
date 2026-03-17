@@ -226,12 +226,48 @@ const ITEMS_BASE = {
     enCarrito: true,
   },
 
-  ordenEspecial: {
-    id: 'orden-especial',
-    nombre: 'Orden Especial',
-    descripcion: '3 tacos + consomé + agua de sabor. La combinación perfecta.',
-    precio: 75,
-    imagen: 'img/menu/orden-especial.jpg',
+  promoAgua: {
+    id: 'promoAgua',
+    nombre: 'Promo Tacos y Agua',
+    descripcion: '3 tacos + 1 agua.',
+    precio: 88,
+    imagen: '../img/mainlogo.jpeg',
+    categoria: 'ordenes',
+    badge: null,
+    visible: false,
+    enCarrito: true,
+  },
+
+  promoBistek: {
+    id: 'promoBistek',
+    nombre: 'Promo Tacos de Bistek',
+    descripcion: '3 tacos de Bistek.',
+    precio: 84,
+    imagen: '../img/mainlogo.jpeg',
+    categoria: 'ordenes',
+    badge: null,
+    visible: false,
+    enCarrito: true,
+  },
+
+  promoLonche: {
+    id: 'promoLonche',
+    nombre: 'Promo Taco y Lonche',
+    descripcion: 'Taco y Lonche.',
+    precio: 84,
+    imagen: '../img/mainlogo.jpeg',
+    categoria: 'ordenes',
+    badge: null,
+    visible: false,
+    enCarrito: true,
+  },
+
+  promoTacos: {
+    id: 'promoTacos',
+    nombre: 'Promo 4 Tacos',
+    descripcion: '4 Tacos',
+    precio: 84,
+    imagen: '../img/mainlogo.jpeg',
     categoria: 'ordenes',
     badge: null,
     visible: false,
@@ -283,6 +319,10 @@ const MENUS_DATA = {
     ITEMS_BASE.tacoBistekConQueso,
     ITEMS_BASE.loncheBistek,
     ITEMS_BASE.gringaBistek,
+    ITEMS_BASE.promoAgua,
+    ITEMS_BASE.promoBistek,
+    ITEMS_BASE.promoLonche,
+    ITEMS_BASE.promoTacos,
   ],
 
   /* ── Las Águilas ────────────────────────────────────────────── */

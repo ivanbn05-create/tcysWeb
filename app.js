@@ -151,6 +151,10 @@ function _renderHero(sucursal) {
   const elSubtitle = document.getElementById('hero-sucursal-subtitulo');
   if (elNombre)   elNombre.textContent   = sucursal.nombre;
   if (elSubtitle) elSubtitle.textContent = sucursal.subtitulo;
+
+  /* Horario dinámico en el hero badge */
+  const elHorario = document.getElementById('hero-horario-text');
+  if (elHorario) elHorario.textContent = sucursal.horario;
 }
 
 /* ── Branch Switcher ────────────────────────────────────────────── */
@@ -203,7 +207,6 @@ function _initFooter() {
 /**
  * Rellena dinámicamente la lista de contactos del footer
  * leyendo los datos reales de SUCURSALES_DATA.
- * En index.html el div debe tener id="footer-contact-list".
  */
 function _renderFooterContactos() {
   const lista = document.getElementById('footer-contact-list');
@@ -223,7 +226,6 @@ function _renderFooterContactos() {
 /**
  * Rellena dinámicamente los horarios del footer
  * leyendo los datos reales de SUCURSALES_DATA.
- * En index.html el div debe tener id="footer-hours-list".
  */
 function _renderFooterHorarios() {
   const lista = document.getElementById('footer-hours-list');

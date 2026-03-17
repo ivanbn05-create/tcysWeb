@@ -67,9 +67,9 @@ function renderCortes() {
   seccion.innerHTML = `
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-badge">🥩 Del Corral · Cortes Finos</span>
-        <h2 class="section-title">Cortes Premium</h2>
-        <p class="section-sub">Del mismo rancho, otro nivel. Cortes de res de primera selección.</p>
+        <span class="section-badge">Prueba También:</span>
+        <h2 class="section-title">DEL CORRAL - PREMIUM BEEF</h2>
+        <p class="section-sub">Las Mejores Carnes del Norte.</p>
       </div>
 
       <div class="menu-grid" role="list">

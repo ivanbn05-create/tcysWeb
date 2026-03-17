@@ -34,15 +34,15 @@
 const PROMOS_BASE = {
 
   promoLonche: {
-    productoId: 'td',
+    productoId: 'promoLonche',
     icono: 'fa-solid fa-utensils',
     titulo: 'Taco y Lonche',
-    descripcion: 'Un taco y un lonche con queso a precio especial de 84 pesos',
+    descripcion: 'Un taco y un lonche con queso a precio especial de 84 pesos.',
     disclaimer: '*Sólo para Barbacoa; taco sin queso.',
   },
 
   promoAgua: {
-    productoId: 'td',
+    productoId: 'promoAgua',
     icono: 'fa-solid fa-glass-water',
     titulo: 'Taco y Bebida',
     descripcion: 'Tres tacos y una bebida por 84 pesos.',
@@ -50,18 +50,18 @@ const PROMOS_BASE = {
   },
 
   promoTacos: {
-    productoId: 'promoMartes1',
+    productoId: 'promoTacos',
     icono: 'fa-solid fa-layer-group',
     titulo: 'Orden 4 Tacos',
-    descripcion: 'Cuatro tacos al gusto',
+    descripcion: 'Cuatro tacos al gusto por 84 pesos.',
     disclaimer: '*Sólo para Barbacoa; sin queso.',
   },
 
   promoBistek: {
-    productoId: 'tk',
+    productoId: 'promoBistek',
     icono: 'fa-solid fa-fire-flame-curved',
     titulo: 'Orden 3 de Bistek',
-    descripcion: 'Tres tacos de bistek.',
+    descripcion: 'Tres tacos de bistek a precio especial de 84 pesos.',
     disclaimer: '*Sin queso.',
   },
 };

@@ -54,7 +54,6 @@
 
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- <link rel="icon" type="image/png" href="img/favicon.png" /> -->
 </head>
 
 <body>
@@ -66,7 +65,7 @@
     <div class="nav-inner">
       <a href="/" class="nav-logo" aria-label="Los Tocayos — Inicio"
          onclick="event.preventDefault(); window.App?.navegarA('arboledas')">
-        <span class="logo-main">LOS TOCAYOS</span>
+        <span class="logo-main"><span class="logo-los">LOS </span><span class="logo-t">T</span><span class="logo-ocayos">OCAYOS</span></span>
         <span class="logo-sub">TACOS DE BARBACOA</span>
       </a>
 
@@ -114,7 +113,7 @@
       <div id="branch-switcher" class="branch-switcher" role="tablist"
            aria-label="Sucursales disponibles">
         <button class="switcher-tab activa" role="tab" data-sucursal="arboledas" aria-selected="true">
-          <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Arboledas
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Mariano Otero
         </button>
         <button class="switcher-tab" role="tab" data-sucursal="aguilas" aria-selected="false">
           <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Las Águilas
@@ -180,7 +179,7 @@
           </span>
           <span class="badge">
             <i class="fa-solid fa-clock" aria-hidden="true"></i>
-            9:30 - 17:30
+            <span id="hero-horario-text">9:30 - 17:30</span>
           </span>
           <span class="badge">
             <i class="fa-solid fa-map-pin" aria-hidden="true"></i>
@@ -198,18 +197,18 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
-         SECCIÓN PROMO
-         promo.js inyecta aquí: promos + panel de descargas
-    ══════════════════════════════════════════════════════════ -->
-    <section id="seccion-promo" class="promo-section"
-             aria-label="Promoción del día">
-    </section>
-
-    <!-- ══════════════════════════════════════════════════════════
          SECCIÓN MENÚ
     ══════════════════════════════════════════════════════════ -->
     <section id="seccion-menu" class="menu-section"
              aria-label="Nuestro menú">
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         SECCIÓN PROMO + DESCARGAS
+         promo.js inyecta aquí: promos (tercios 1–2) + descargas (tercio 3)
+    ══════════════════════════════════════════════════════════ -->
+    <section id="seccion-promo" class="promo-section"
+             aria-label="Promoción del día">
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
@@ -284,7 +283,7 @@
       <div class="footer-grid">
 
         <div class="footer-brand">
-          <p class="footer-logo-text">LOS TOCAYOS</p>
+          <p class="footer-logo-text"><span class="logo-los">LOS </span><span class="logo-t">T</span><span class="logo-ocayos">OCAYOS</span></p>
           <p class="footer-tagline">Sabor con Distinción.</p>
           <div class="footer-social" aria-label="Redes sociales">
             <a href="https://www.facebook.com/lostocayos" target="_blank"
@@ -305,7 +304,7 @@
         <nav class="footer-nav" aria-label="Navegación footer">
           <h4>Sucursales</h4>
           <ul>
-            <li><a href="/arboledas"    onclick="event.preventDefault();window.App?.navegarA('arboledas')">Arboledas</a></li>
+            <li><a href="/arboledas"    onclick="event.preventDefault();window.App?.navegarA('arboledas')">Mariano Otero</a></li>
             <li><a href="/aguilas"      onclick="event.preventDefault();window.App?.navegarA('aguilas')">Las Águilas</a></li>
             <li><a href="/estancia"     onclick="event.preventDefault();window.App?.navegarA('estancia')">La Estancia</a></li>
             <li><a href="/centromedico" onclick="event.preventDefault();window.App?.navegarA('centromedico')">Centro Médico</a></li>

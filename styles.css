@@ -376,9 +376,9 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
    .btn-agregar-promo · .promo-rest-card · .rest-icon
    ================================================ */
 .promo-section {
-  background: var(--gris);
+  background: var(--amarillo);
   padding: 5rem 0;
-  border-top: 1.5px solid #e0e0e0;
+  border-top: 1.5px solid var(--negro);
 }
 .promos-container {
   display: grid;
@@ -883,18 +883,22 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
   padding: 0.5rem 1rem;
   border-radius: var(--radius);
   border: 1.5px solid var(--negro);
-  background: transparent;
-  color: var(--negro);
+  background: var(--negro);
+  color: var(--blanco);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  transition: background var(--trans), color var(--trans);
+  transition: background var(--trans), border-color var(--trans), color var(--trans);
   width: 100%;
   justify-content: center;
   margin-top: 0.15rem;
 }
-.btn-ver-sucursal:hover { background: var(--negro); color: var(--blanco); }
+.btn-ver-sucursal:hover {
+  background: var(--rojo);
+  border-color: var(--rojo);
+  color: var(--blanco);
+}
 
 /* ================================================
    MAPA
@@ -1070,7 +1074,7 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
    ================================================ */
 .cta-section {
   padding: 6rem 0;
-  background: var(--blanco);
+  background: var(--amarillo);
   border-top: 1.5px solid var(--negro);
 }
 .cta-inner {
@@ -1492,369 +1496,27 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
   }
 }
 
-/* ================================================================
-   LOS TOCAYOS — styles-extras.css
-   Estilos para las nuevas funciones:
-     · Sistema de platos (selector + grupos en carrito)
-     · Auto-add progress bar
-     · Hints / tutoriales dismissables
-     · Sección de descargas
-     · "T" grande en TOCAYOS del hero
-   ================================================================
-   INSTRUCCIONES:
-   Agrega <link rel="stylesheet" href="styles-extras.css">
-   en el <head> de index.html, DESPUÉS de styles.css
-   ================================================================ */
 
-/* ================================================================
-   1. T GRANDE EN "TOCAYOS" — HERO
-   Sólo en el hero (sin degradado de fondo) se puede aplicar
-   de forma limpia. El logo del navbar usa background-clip:text
-   con gradiente calibrado, por lo que se deja sin modificar.
-   ================================================================ */
-.big-t {
-  display: inline-block;
-  font-size: 1.15em;
-  line-height: inherit;
-  vertical-align: baseline;
-}
-
-/* ================================================================
-   2. SELECTOR DE PLATOS
-   ================================================================ */
-.plato-selector-wrap {
-  margin-bottom: 2rem;
-}
-
-/* Hint / tutorial */
-.menu-hint {
-  background: var(--amarillo);
-  border: 1.5px solid var(--negro);
-  border-radius: var(--radius);
-  padding: 0.85rem 1rem 0.85rem 1.1rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin-bottom: 0.85rem;
-  font-size: 0.87rem;
-  line-height: 1.5;
-  animation: hintSlideIn 0.35s ease;
-}
-.menu-hint strong { font-weight: 700; }
-.menu-hint span   { flex: 1; }
-
-@keyframes hintSlideIn {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0);    }
-}
-
-.hint-oculto { display: none !important; }
-
-.hint-ocultando {
-  opacity: 0;
-  transform: translateY(-6px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
-}
-
-.menu-hint-close {
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  font-weight: 700;
-  line-height: 1;
-  background: rgba(0,0,0,0.08);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--negro);
-  transition: background var(--trans);
-  align-self: flex-start;
-  margin-top: 1px;
-}
-.menu-hint-close:hover { background: rgba(0,0,0,0.18); }
-
-/* Selector principal */
-.plato-selector {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  background: var(--gris);
-  border: 1.5px solid #e0e0e0;
-  border-radius: var(--radius);
-  padding: 0.65rem 1rem;
-}
-
-.plato-selector-label {
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.plato-btns {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-}
-
-/* Botón de plato individual — cuadrado pequeño */
-.plato-btn {
-  position: relative;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-ui);
-  font-size: 0.78rem;
-  font-weight: 700;
-  border: 1.5px solid #d0d0d0;
-  border-radius: 4px;
-  background: var(--blanco);
-  color: var(--muted);
-  cursor: pointer;
-  transition: background var(--trans), border-color var(--trans),
-              color var(--trans), transform var(--trans);
-  flex-shrink: 0;
-}
-.plato-btn:hover {
-  border-color: var(--negro);
-  color: var(--negro);
-  transform: translateY(-1px);
-}
-.plato-btn.activo {
-  background: var(--negro);
-  border-color: var(--negro);
-  color: var(--blanco);
-  box-shadow: 2px 2px 0 var(--negro);
-}
-
-/* Mini-badge con cantidad de ítems del plato */
-.plato-btn[data-count]:not([data-count=""])::after {
-  content: attr(data-count);
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  min-width: 16px;
-  height: 16px;
-  background: var(--rojo);
-  color: var(--blanco);
-  border-radius: 50%;
-  font-size: 0.62rem;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 2px;
-  border: 1.5px solid var(--blanco);
-  pointer-events: none;
-}
-
-/* Botón de ayuda "?" */
-.plato-hint-toggle {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-ui);
-  font-size: 0.78rem;
-  font-weight: 700;
-  border: 1.5px solid #d0d0d0;
-  border-radius: 50%;
-  background: var(--blanco);
-  color: var(--muted);
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background var(--trans), border-color var(--trans), color var(--trans);
-  margin-left: auto;
-}
-.plato-hint-toggle:hover {
-  background: var(--negro);
-  border-color: var(--negro);
-  color: var(--blanco);
-}
-
-/* ================================================================
-   3. AUTO-ADD PROGRESS BAR
-   Aparece dentro del botón ✓ del stepper.
-   La animación dura exactamente 2.5 s (igual que el setTimeout).
-   ================================================================ */
-.stepper-auto-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 100%;
-  background: var(--verde);
-  transform-origin: left center;
-  animation: autoAddCountdown 2.5s linear forwards;
-  pointer-events: none;
-}
-@keyframes autoAddCountdown {
-  from { transform: scaleX(1); }
-  to   { transform: scaleX(0); }
-}
-
-/* ================================================================
-   4. CARRITO — GRUPOS POR PLATO
-   ================================================================ */
-.carrito-plato-grupo {
-  margin-bottom: 0.5rem;
-}
-
-.carrito-plato-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 0 0.3rem;
-  margin-bottom: 0.1rem;
-  border-bottom: 1.5px solid var(--negro);
-}
-
-.carrito-plato-num {
-  font-family: var(--font-ui);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--negro);
-}
-
-.carrito-plato-subtotal {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: var(--muted);
-}
-
-.carrito-plato-grupo .carrito-item:last-child {
-  border-bottom: none;
-  margin-bottom: 0.5rem;
-}
-
-/* ================================================================
-   5. SECCIÓN DE DESCARGAS
-   ================================================================ */
-.descargas-section {
-  padding: 5rem 0;
-  background: var(--amarillo);
-  border-top: 1.5px solid var(--negro);
-}
-.descargas-section .section-title {
-  color: var(--negro);
-  background: none;
-  -webkit-text-fill-color: var(--negro);
-}
-.descargas-section .section-badge { color: rgba(0,0,0,0.4); }
-.descargas-section .section-sub   { color: rgba(0,0,0,0.55); }
-
-.descargas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.descarga-card {
-  background: var(--negro);
-  color: var(--blanco);
-  border: 1.5px solid var(--negro);
-  border-radius: var(--radius);
-  padding: 2rem 1.25rem 1.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  transition: transform var(--trans), box-shadow var(--trans), background var(--trans);
-  cursor: pointer;
-}
-.descarga-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 5px 5px 0 var(--negro);
-  background: var(--rojo);
-  border-color: var(--rojo);
-}
-
-.descarga-icon { font-size: 2.2rem; line-height: 1; margin-bottom: 0.15rem; }
-
-.descarga-title {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  color: var(--blanco);
-  -webkit-text-fill-color: var(--blanco);
-  text-align: center;
-  line-height: 1.1;
-}
-
-.descarga-sub {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.5);
-  text-align: center;
-  line-height: 1.4;
-}
-
-.descarga-btn-label {
-  margin-top: 0.5rem;
-  font-family: var(--font-ui);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-.descarga-card:hover .descarga-btn-label { color: rgba(255,255,255,0.65); }
-
-/* ================================================================
-   6. RESPONSIVE EXTRAS
-   ================================================================ */
-@media (max-width: 768px) {
-  .plato-btns { gap: 3px; }
-  .plato-btn  { width: 28px; height: 28px; font-size: 0.72rem; }
-  .descargas-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 480px) {
-  .descargas-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-  .descarga-card  { padding: 1.5rem 1rem 1.25rem; }
-  .descarga-title { font-size: 1.15rem; }
-}
 /* ================================================================
    LOS TOCAYOS — styles-extras.css
    Pega este bloque al final de styles.css, o enlázalo después de él.
    ================================================================
    Contiene:
-     1. T grande en TOCAYOS del hero
+     1. T grande en TOCAYOS — hero Y navbar
      2. Selector de platos (1–10)
      3. Auto-add progress bar
      4. Carrito — grupos por plato
      5. Promo section — layout en tercios + descargas compactas
      6. Sección Del Corral — paleta crema/café (logo Del Corral)
      7. CTA final — fix del gradiente "¿Ya te ganó el hambre?"
-     8. Responsive extras
+     8. Sucursal cards — fondo amarillo + nombre en verde/rojo
+     9. Promo cards — fondo amarillo
+    10. Responsive extras
    ================================================================ */
 
 /* ================================================================
-   1. T GRANDE EN "TOCAYOS" — HERO
+   1A. T GRANDE EN "TOCAYOS" — HERO
    Solo aplica al hero donde el texto usa color sólido.
-   El logo del navbar/footer usa background-clip:text con
-   gradiente calibrado, por lo que se deja sin modificar.
    ================================================================ */
 .big-t {
   display: inline-block;
@@ -1862,6 +1524,54 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
   line-height: inherit;
   vertical-align: baseline;
 }
+
+/* ================================================================
+   1B. T GRANDE EN "TOCAYOS" — NAVBAR (logo-main)
+   El truco de background-clip:text con gradiente no permite
+   spans internos. Se reemplaza por spans con color directo:
+     .logo-los    → verde
+     .logo-t      → rojo, tamaño 1.18em
+     .logo-ocayos → rojo
+   En index.html el markup del logo pasa a ser:
+     <span class="logo-main">
+       <span class="logo-los">LOS </span><span
+       class="logo-t">T</span><span class="logo-ocayos">OCAYOS</span>
+     </span>
+   ================================================================ */
+.logo-main {
+  /* Anular el gradiente calibrado — lo reemplazamos con spans */
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+}
+.logo-los {
+  color: var(--verde);
+  -webkit-text-fill-color: var(--verde);
+}
+.logo-t {
+  color: var(--rojo);
+  -webkit-text-fill-color: var(--rojo);
+  font-size: 1.18em;
+  line-height: inherit;
+  display: inline-block;
+  vertical-align: baseline;
+}
+.logo-ocayos {
+  color: var(--rojo);
+  -webkit-text-fill-color: var(--rojo);
+}
+
+/* El footer usa .footer-logo-text — mismo tratamiento */
+.footer-logo-text {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+}
+.footer-logo-text .logo-los    { color: var(--verde); -webkit-text-fill-color: var(--verde); }
+.footer-logo-text .logo-t      { color: var(--rojo);  -webkit-text-fill-color: var(--rojo); font-size: 1.18em; display: inline-block; vertical-align: baseline; line-height: inherit; }
+.footer-logo-text .logo-ocayos { color: var(--rojo);  -webkit-text-fill-color: var(--rojo); }
 
 /* ================================================================
    2. SELECTOR DE PLATOS
@@ -2212,7 +1922,42 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
 }
 
 /* ================================================================
-   8. RESPONSIVE EXTRAS
+   8. SUCURSAL CARDS — FONDO AMARILLO + NOMBRE EN VERDE/ROJO
+   .suc-verde y .suc-rojo son generados por sucursales.js
+   via _nombreMarca().
+   ================================================================ */
+.sucursal-card {
+  background: var(--amarillo) !important;
+}
+.sucursal-card:hover,
+.sucursal-card.nearest-highlight {
+  box-shadow: 4px 4px 0 var(--negro) !important;
+}
+/* El nombre de la sucursal usa el estilo de marca Los Tocayos */
+.sucursal-name .suc-verde {
+  color: var(--verde);
+  -webkit-text-fill-color: var(--verde);
+}
+.sucursal-name .suc-rojo {
+  color: var(--rojo);
+  -webkit-text-fill-color: var(--rojo);
+}
+
+/* ================================================================
+   9. PROMO CARDS — blanco sobre fondo amarillo de la sección
+   ================================================================ */
+/* Las tarjetas retienen su fondo blanco base (.promo-card en el bloque original).
+   Solo se ajusta el icono y la card de "sin promo" para consistencia. */
+.promo-card .promo-fa-icon { color: var(--rojo); }
+
+/* Card "sin promo hoy" */
+.promo-rest-card {
+  background: var(--blanco);
+  border: 1.5px solid var(--negro);
+}
+
+/* ================================================================
+   10. RESPONSIVE EXTRAS
    ================================================================ */
 @media (max-width: 900px) {
   /* Promos: colapsa a 1 col de promos + 1 col de descargas */

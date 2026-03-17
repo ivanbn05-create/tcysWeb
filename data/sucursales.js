@@ -3,45 +3,20 @@
  * LOS TOCAYOS — data/sucursales.js
  * Fuente única de datos de sucursales.
  * ================================================================
- * ✏️  CÓMO EDITAR HORARIOS:
- *
- *   El campo `horarios` es un arreglo de 7 elementos donde el
- *   índice representa el día de la semana (igual que Date.getDay()):
- *     0 = Domingo · 1 = Lunes · 2 = Martes · 3 = Miércoles
- *     4 = Jueves  · 5 = Viernes · 6 = Sábado
- *
- *   Cada elemento es:
- *     · null                           → cerrado ese día
- *     · { abre: 'HH:MM', cierra: 'HH:MM' }  → abierto en ese rango
- *
- *   Ejemplo: sucursal que descansa el domingo:
- *     horarios: [
- *       null,                              // 0 domingo  — cerrado
- *       { abre: '07:00', cierra: '15:00' },// 1 lunes    — abierto
- *       { abre: '07:00', cierra: '15:00' },// 2 martes   — abierto
- *       { abre: '07:00', cierra: '15:00' },// 3 miércoles— abierto
- *       { abre: '07:00', cierra: '15:00' },// 4 jueves   — abierto
- *       { abre: '07:00', cierra: '15:00' },// 5 viernes  — abierto
- *       { abre: '07:00', cierra: '15:00' },// 6 sábado   — abierto
- *     ],
- *
- *   El campo `horario` (string) sigue usándose como texto
- *   descriptivo visible en la UI (tarjetas, mapa, etc.).
- * ================================================================
  */
 
 'use strict';
 
 const SUCURSALES_DATA = {
 
-  /* ── SUCURSAL 1 — ARBOLEDAS (PRINCIPAL, tiene carrito) ──────── */
+  /* ── SUCURSAL 1 — MARIANO OTERO (PRINCIPAL, tiene carrito) ──── */
   arboledas: {
     id: 'arboledas',
     slug: 'arboledas',
     esPrincipal: true,
     tieneCarrito: true,
-    nombre: 'Arboledas',
-    nombreCompleto: 'Los Tocayos Arboledas',
+    nombre: 'Mariano Otero',
+    nombreCompleto: 'Los Tocayos Mariano Otero',
     subtitulo: 'Sucursal Principal',
 
     lat: 20.63183901659015,
@@ -51,16 +26,13 @@ const SUCURSALES_DATA = {
     ciudad: 'Zapopan',
     estado: 'Jalisco',
     cp: '45070',
-    telefono: '3315421635',
+    telefono: '3315421635 / 3336316834',
     telefonoDisplay: '(33) 1542-1635',
+    //telefonoDisplay: '(33) 3631-6834',
     whatsapp: '5213323324878',
     mapsUrl: 'https://maps.app.goo.gl/f4rZjW4jQqRVoidq8',
 
-    /* Texto descriptivo para mostrar en UI */
     horario: 'Lun – Dom · 9:30 – 17:30',
-
-    /* ✏️  Horarios por día: arreglo [Dom, Lun, Mar, Mié, Jue, Vie, Sáb]
-          Arboledas abre todos los días */
     horarios: [
       { abre: '09:30', cierra: '17:30' }, // 0 domingo
       { abre: '09:30', cierra: '17:30' }, // 1 lunes
@@ -74,16 +46,16 @@ const SUCURSALES_DATA = {
     heroImg: '../img/tacosdorados.jpeg',
 
     seo: {
-      title:       'Los Tocayos Arboledas | Tacos de Barbacoa en Zapopan, Jalisco',
-      description: 'Los mejores tacos de barbacoa en Arboledas, Zapopan. Barbacoa auténtica, consomé, quesatacos. Abierto lunes a domingo desde las 9:30am. Los Tocayos.',
-      keywords:    'tacos barbacoa Arboledas, tacos Zapopan, barbacoa Arboledas, Los Tocayos Arboledas, taquería Zapopan, tacos cerca de mi Zapopan',
+      title:       'Los Tocayos Mariano Otero | Tacos de Barbacoa en Zapopan, Jalisco',
+      description: 'Los mejores tacos de barbacoa en Mariano Otero, Zapopan. Barbacoa auténtica, consomé, quesatacos. Abierto lunes a domingo desde las 9:30am. Los Tocayos.',
+      keywords:    'tacos barbacoa Mariano Otero, tacos Zapopan, Los Tocayos Mariano Otero, taquería Zapopan',
       og: {
         image: 'https://www.lostocayos.mx/img/og-arboledas.jpg',
         url:   'https://www.lostocayos.mx/arboledas',
       },
       schema: {
-        name:        'Los Tocayos Arboledas',
-        description: 'Tacos de barbacoa auténtica en Arboledas, Zapopan. Sucursal principal.',
+        name:        'Los Tocayos Mariano Otero',
+        description: 'Tacos de barbacoa auténtica en Mariano Otero, Zapopan. Sucursal principal.',
       },
     },
   },
@@ -110,25 +82,23 @@ const SUCURSALES_DATA = {
     whatsapp: '5213322557171',
     mapsUrl: 'https://maps.app.goo.gl/k3wTB3ARCPnqWT487',
 
-    horario: 'Lun – Sáb · 7:00 – 15:00',
-
-    /* ✏️  Las Águilas: cerrado el domingo */
+    horario: 'Mar – Dom · 8:00 – 16:00',
     horarios: [
-      null,                               // 0 domingo  — cerrado
-      { abre: '07:00', cierra: '15:00' }, // 1 lunes
-      { abre: '07:00', cierra: '15:00' }, // 2 martes
-      { abre: '07:00', cierra: '15:00' }, // 3 miércoles
-      { abre: '07:00', cierra: '15:00' }, // 4 jueves
-      { abre: '07:00', cierra: '15:00' }, // 5 viernes
-      { abre: '07:00', cierra: '15:00' }, // 6 sábado
+      { abre: '08:00', cierra: '16:00' },
+      null,
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
     ],
 
-    heroImg: '../img/tacosdorados.jpeg',
+    heroImg: '../img/bistek.jpeg',
 
     seo: {
       title:       'Los Tocayos Las Águilas | Tacos de Barbacoa en Zapopan',
       description: 'Tacos de barbacoa en Las Águilas, Zapopan. Barbacoa artesanal, consomé y más. Visítanos de lunes a sábado desde las 7am. Los Tocayos.',
-      keywords:    'tacos barbacoa Las Águilas, tacos Zapopan Las Águilas, barbacoa Zapopan, Los Tocayos Águilas, taquería Las Águilas',
+      keywords:    'tacos barbacoa Las Águilas, Los Tocayos Águilas',
       og: {
         image: 'https://www.lostocayos.mx/img/og-aguilas.jpg',
         url:   'https://www.lostocayos.mx/aguilas',
@@ -162,25 +132,23 @@ const SUCURSALES_DATA = {
     whatsapp: '5213336273815',
     mapsUrl: 'https://maps.app.goo.gl/ujPCxo82QPVpqoEC8',
 
-    horario: 'Lun – Sáb · 7:00 – 15:00',
-
-    /* ✏️  La Estancia: cerrado el domingo */
+    horario: 'Mie – Lun · 7:00 – 15:00',
     horarios: [
-      null,                               // 0 domingo  — cerrado
-      { abre: '07:00', cierra: '15:00' }, // 1 lunes
-      { abre: '07:00', cierra: '15:00' }, // 2 martes
-      { abre: '07:00', cierra: '15:00' }, // 3 miércoles
-      { abre: '07:00', cierra: '15:00' }, // 4 jueves
-      { abre: '07:00', cierra: '15:00' }, // 5 viernes
-      { abre: '07:00', cierra: '15:00' }, // 6 sábado
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
+      null,
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
     ],
 
-    heroImg: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=1920&q=80&auto=format&fit=crop',
-
+    heroImg: '../img/loncheytaco.jpeg',
+    //https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=1920&q=80&auto=format&fit=crop
     seo: {
       title:       'Los Tocayos La Estancia | Tacos de Barbacoa en Zapopan',
       description: 'Barbacoa auténtica en La Estancia, Zapopan. Tacos, consomé y más. Abierto lunes a sábado desde las 7am. Los Tocayos.',
-      keywords:    'tacos barbacoa La Estancia Zapopan, taquería La Estancia, barbacoa cerca de mi Zapopan, Los Tocayos La Estancia',
+      keywords:    'tacos barbacoa La Estancia Zapopan, Los Tocayos La Estancia',
       og: {
         image: 'https://www.lostocayos.mx/img/og-estancia.jpg',
         url:   'https://www.lostocayos.mx/estancia',
@@ -192,7 +160,7 @@ const SUCURSALES_DATA = {
     },
   },
 
-  /* ── SUCURSAL 4 — ZONA CENTRO MÉDICO ───────────────────────── */
+  /* ── SUCURSAL 4 — CENTRO MÉDICO ─────────────────────────────── */
   centromedico: {
     id: 'centromedico',
     slug: 'centromedico',
@@ -205,7 +173,7 @@ const SUCURSALES_DATA = {
     lat: 20.68851572134136,
     lng: -103.32819143558203,
 
-    direccion: 'Sierra Morena 479, Independencia Oriente, 44340 Guadalajara, Jal.',
+    direccion: 'Sierra Morena 479-Local 1, Independencia Oriente, 44340 Guadalajara, Jal.',
     ciudad: 'Guadalajara',
     estado: 'Jalisco',
     cp: '44340',
@@ -214,25 +182,23 @@ const SUCURSALES_DATA = {
     whatsapp: '5213317403159',
     mapsUrl: 'https://maps.app.goo.gl/ynFBevnLTevviYxJ8',
 
-    horario: 'Lun – Sáb · 7:00 – 15:00',
-
-    /* ✏️  Centro Médico: cerrado el domingo */
+    horario: 'Mar – Dom · 8:00 – 16:00',
     horarios: [
-      null,                               // 0 domingo  — cerrado
-      { abre: '07:00', cierra: '15:00' }, // 1 lunes
-      { abre: '07:00', cierra: '15:00' }, // 2 martes
-      { abre: '07:00', cierra: '15:00' }, // 3 miércoles
-      { abre: '07:00', cierra: '15:00' }, // 4 jueves
-      { abre: '07:00', cierra: '15:00' }, // 5 viernes
-      { abre: '07:00', cierra: '15:00' }, // 6 sábado
+      { abre: '08:00', cierra: '16:00' },
+      null,
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
+      { abre: '08:00', cierra: '16:00' },
     ],
 
-    heroImg: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=1920&q=80&auto=format&fit=crop',
-
+    heroImg: '../img/tacoplanchado.jpeg',
+    //https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=1920&q=80&auto=format&fit=crop
     seo: {
       title:       'Los Tocayos Centro Médico | Tacos de Barbacoa en Guadalajara',
       description: 'Tacos de barbacoa cerca del Centro Médico en Guadalajara. Barbacoa artesanal lista desde las 7am. Los Tocayos.',
-      keywords:    'tacos barbacoa Centro Médico Guadalajara, taquería Centro Médico, barbacoa Guadalajara, Los Tocayos Centro Médico, tacos cerca de Centro Médico',
+      keywords:    'tacos barbacoa Centro Médico Guadalajara, Los Tocayos Centro Médico',
       og: {
         image: 'https://www.lostocayos.mx/img/og-centromedico.jpg',
         url:   'https://www.lostocayos.mx/centromedico',
@@ -245,8 +211,5 @@ const SUCURSALES_DATA = {
   },
 };
 
-/* Orden de display en la UI (pestañas / tarjetas) */
 const SUCURSALES_ORDEN = ['arboledas', 'aguilas', 'estancia', 'centromedico'];
-
-/* Sucursal por defecto (ruta /) */
 const SUCURSAL_DEFAULT = 'arboledas';

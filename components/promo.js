@@ -19,25 +19,25 @@ const DESCARGAS_CONFIG = [
   {
     icono: 'fa-solid fa-utensils',
     titulo: 'Nuestro Menú',
-    href: 'img/menu-imagen.jpg',
+    href: '../img/menu.jpeg',
     ariaLabel: 'Descargar imagen del menú',
   },
   {
     icono: 'fa-solid fa-fire-flame-curved',
     titulo: 'Precios Cortes',
-    href: 'img/cortes-precios.jpg',
+    href: '../img/cortes.jpeg',
     ariaLabel: 'Descargar precios de cortes finos',
   },
   {
     icono: 'fa-solid fa-star',
     titulo: 'Eventos',
-    href: 'img/eventos.jpg',
+    href: '../img/eventos.jpeg',
     ariaLabel: 'Descargar información para eventos',
   },
   {
     icono: 'fa-solid fa-tag',
     titulo: 'Promociones',
-    href: 'img/promociones.jpg',
+    href: '../img/promos.jpeg',
     ariaLabel: 'Descargar imagen de promociones',
   },
 ];
