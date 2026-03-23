@@ -19,7 +19,7 @@
 'use strict';
 
 /* ✏️  Cambia esta URL por la real de la tienda de cortes */
-const DEL_CORRAL_URL = 'https://TU-TIENDA-DE-CORTES.COM';
+const DEL_CORRAL_URL = '';
 
 const CORTES_SHOWCASE_DATA = [
   {
