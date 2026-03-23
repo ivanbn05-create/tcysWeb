@@ -3,6 +3,18 @@
  * LOS TOCAYOS — data/sucursales.js
  * Fuente única de datos de sucursales.
  * ================================================================
+ * ✏️  APPS DE ENTREGA (campo `delivery` en cada sucursal):
+ *
+ *   delivery: {
+ *     uberEats: { activo: true,  url: 'https://ubereats.com/...' },
+ *     didi:     { activo: true,  url: 'https://food.didiglobal.com/...' },
+ *     rappi:    { activo: false, url: '' },
+ *   }
+ *
+ *   · activo: true  → el botón aparece en el hero de esa sucursal
+ *   · activo: false → botón oculto (aunque tenga url)
+ *   · url: enlace directo a la página de la sucursal en la app
+ * ================================================================
  */
 
 'use strict';
@@ -26,24 +38,30 @@ const SUCURSALES_DATA = {
     ciudad: 'Zapopan',
     estado: 'Jalisco',
     cp: '45070',
-    telefono: '3315421635 / 3336316834',
+    telefono: '3315421635',
     telefonoDisplay: '(33) 1542-1635',
-    //telefonoDisplay: '(33) 3631-6834',
     whatsapp: '5213323324878',
     mapsUrl: 'https://maps.app.goo.gl/f4rZjW4jQqRVoidq8',
 
     horario: 'Lun – Dom · 9:30 – 17:30',
     horarios: [
-      { abre: '09:30', cierra: '17:30' }, // 0 domingo
-      { abre: '09:30', cierra: '17:30' }, // 1 lunes
-      { abre: '09:30', cierra: '17:30' }, // 2 martes
-      { abre: '09:30', cierra: '17:30' }, // 3 miércoles
-      { abre: '09:30', cierra: '17:30' }, // 4 jueves
-      { abre: '09:30', cierra: '17:30' }, // 5 viernes
-      { abre: '09:30', cierra: '17:30' }, // 6 sábado
+      { abre: '09:30', cierra: '17:30' },
+      { abre: '09:30', cierra: '17:30' },
+      { abre: '09:30', cierra: '17:30' },
+      { abre: '09:30', cierra: '17:30' },
+      { abre: '09:30', cierra: '17:30' },
+      { abre: '09:30', cierra: '17:30' },
+      { abre: '09:30', cierra: '17:30' },
     ],
 
     heroImg: '../img/tacosdorados.jpeg',
+
+    /* ✏️  Edita activo y url de cada app para esta sucursal */
+    delivery: {
+      uberEats: { activo: true, url: 'https://www.ubereats.com/mx/store/los-tocayos-matriz-mariano-otero-jalisto/M2Mv1Z35QHWST6nvrWcq7Q?srsltid=AfmBOoq-_cE0PdVWhtH8l0L4WJxuwUuGWZFe3rs1APu3Kk8L_h5jhRC-' },
+      didi:     { activo: true, url: 'https://www.didi-food.com/es-MX/food/store/5764607571500204084/Los-Tocayos?channel=19&pl=eyJwb2lJZCI6IkNoSUpEVU12ZVhTc0tJUVI1T3pMSXdPTVhfRSIsImRpc3BsYXlOYW1lIjoiTWFyaWFubyBPdGVybyIsImFkZHJlc3MiOiJNYXJpYW5vIE90ZXJvLCBaYXBvcGFuLCBKYWwuIiwibGF0IjoyMC42MzAxNDcyLCJsbmciOi0xMDMuNDQ2ODQxOSwic3JjVGFnIjoiZ29vZ2xlX3RleHRzZWFyY2hfZ2ciLCJwb2lTcmNUYWciOiJtYW51YWxfc3VnIiwiY29vcmRpbmF0ZVR5cGUiOiJ3Z3M4NCIsImNpdHlJZCI6NTIxNDA1MDAsImNpdHkiOiJHdWFkYWxhamFyYSIsInNlYXJjaElkIjoiMGE5M2UwOTU2OWMwOWQ5ZjdkMWRjODM1NDY1MjE4MDIiLCJhZGRyZXNzQWxsIjoiTWFyaWFubyBPdGVybywgWmFwb3BhbiwgSmFsLiIsImFkZHJlc3NBbGxEaXNwbGF5IjoiWmFwb3BhbiwgSmFsIiwiY291bnRyeUNvZGUiOiJNWCIsImNvdW50cnlJZCI6NTIsImRpc3RTdHIiOiI5OStrbSIsImRpc3QiOjQ2OTM1NSwicG9pVHlwZSI6IiIsImNvdW50eUlkIjo1MjE0MDUxMSwiY291bnR5R3JvdXBJZCI6NTIxNDA1MDAwMDAxLCJhaWQiOiIifQ%3D%3D' },
+      rappi:    { activo: true, url: 'https://www.rappi.com.mx/restaurantes/1306713481-los-tocayos-tacos-de-barbacoa' },
+    },
 
     seo: {
       title:       'Los Tocayos Mariano Otero | Tacos de Barbacoa en Zapopan, Jalisco',
@@ -82,18 +100,25 @@ const SUCURSALES_DATA = {
     whatsapp: '5213322557171',
     mapsUrl: 'https://maps.app.goo.gl/k3wTB3ARCPnqWT487',
 
-    horario: 'Mar – Dom · 8:00 – 16:00',
+    horario: 'Lun – Sáb · 7:00 – 15:00',
     horarios: [
-      { abre: '08:00', cierra: '16:00' },
       null,
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
     ],
 
-    heroImg: '../img/bistek.jpeg',
+    heroImg: '../img/tacosdorados.jpeg',
+
+    /* ✏️  Edita activo y url de cada app para esta sucursal */
+    delivery: {
+      uberEats: { activo: false, url: '' },
+      didi:     { activo: false, url: '' },
+      rappi:    { activo: false, url: '' },
+    },
 
     seo: {
       title:       'Los Tocayos Las Águilas | Tacos de Barbacoa en Zapopan',
@@ -132,19 +157,26 @@ const SUCURSALES_DATA = {
     whatsapp: '5213336273815',
     mapsUrl: 'https://maps.app.goo.gl/ujPCxo82QPVpqoEC8',
 
-    horario: 'Mie – Lun · 7:00 – 15:00',
+    horario: 'Lun – Sáb · 7:00 – 15:00',
     horarios: [
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
       null,
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
     ],
 
-    heroImg: '../img/loncheytaco.jpeg',
-    //https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=1920&q=80&auto=format&fit=crop
+    heroImg: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=1920&q=80&auto=format&fit=crop',
+
+    /* ✏️  Edita activo y url de cada app para esta sucursal */
+    delivery: {
+      uberEats: { activo: false, url: '' },
+      didi:     { activo: false, url: '' },
+      rappi:    { activo: false, url: '' },
+    },
+
     seo: {
       title:       'Los Tocayos La Estancia | Tacos de Barbacoa en Zapopan',
       description: 'Barbacoa auténtica en La Estancia, Zapopan. Tacos, consomé y más. Abierto lunes a sábado desde las 7am. Los Tocayos.',
@@ -173,7 +205,7 @@ const SUCURSALES_DATA = {
     lat: 20.68851572134136,
     lng: -103.32819143558203,
 
-    direccion: 'Sierra Morena 479-Local 1, Independencia Oriente, 44340 Guadalajara, Jal.',
+    direccion: 'Sierra Morena 479, Independencia Oriente, 44340 Guadalajara, Jal.',
     ciudad: 'Guadalajara',
     estado: 'Jalisco',
     cp: '44340',
@@ -182,19 +214,26 @@ const SUCURSALES_DATA = {
     whatsapp: '5213317403159',
     mapsUrl: 'https://maps.app.goo.gl/ynFBevnLTevviYxJ8',
 
-    horario: 'Mar – Dom · 8:00 – 16:00',
+    horario: 'Lun – Sáb · 7:00 – 15:00',
     horarios: [
-      { abre: '08:00', cierra: '16:00' },
       null,
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
-      { abre: '08:00', cierra: '16:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
+      { abre: '07:00', cierra: '15:00' },
     ],
 
-    heroImg: '../img/tacoplanchado.jpeg',
-    //https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=1920&q=80&auto=format&fit=crop
+    heroImg: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=1920&q=80&auto=format&fit=crop',
+
+    /* ✏️  Edita activo y url de cada app para esta sucursal */
+    delivery: {
+      uberEats: { activo: false, url: '' },
+      didi:     { activo: false, url: '' },
+      rappi:    { activo: false, url: '' },
+    },
+
     seo: {
       title:       'Los Tocayos Centro Médico | Tacos de Barbacoa en Guadalajara',
       description: 'Tacos de barbacoa cerca del Centro Médico en Guadalajara. Barbacoa artesanal lista desde las 7am. Los Tocayos.',

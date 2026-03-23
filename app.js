@@ -155,6 +155,59 @@ function _renderHero(sucursal) {
   /* Horario dinámico en el hero badge */
   const elHorario = document.getElementById('hero-horario-text');
   if (elHorario) elHorario.textContent = sucursal.horario;
+
+  /* Botones de apps de entrega */
+  _renderDeliveryBtns(sucursal);
+}
+
+/**
+ * Renderiza los botones de Uber Eats, Didi y Rappi en la
+ * esquina superior derecha del hero, según la config de la sucursal.
+ */
+function _renderDeliveryBtns(sucursal) {
+  const wrap = document.getElementById('hero-delivery');
+  if (!wrap) return;
+
+  const d = sucursal.delivery ?? {};
+
+  const APPS = [
+    { key: 'uberEats', label: 'Uber Eats', cls: 'delivery-btn--ubereats' },
+    { key: 'didi',     label: 'DiDi Food', cls: 'delivery-btn--didi'     },
+    { key: 'rappi',    label: 'Rappi',     cls: 'delivery-btn--rappi'    },
+  ];
+
+  const LOGOS = {
+    uberEats: `<img src="img/uber.png" alt="Uber" />`,
+    didi: `<img src="img/didi.jpg" alt="Didi" />`,
+    rappi: `<img src="img/rappi.png" alt="Rappi" />`,
+    // uberEats: `<svg viewBox="0 0 116 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    //   <text y="22" font-family="Arial,sans-serif" font-weight="900" font-size="20" fill="currentColor">Uber</text>
+    //   <text x="54" y="22" font-family="Arial,sans-serif" font-weight="400" font-size="20" fill="currentColor">Eats</text>
+    // </svg>`,
+    // didi: `<svg viewBox="0 0 72 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    //   <text y="23" font-family="Arial,sans-serif" font-weight="900" font-size="22" fill="currentColor">DiDi</text>
+    // </svg>`,
+    // rappi: `<svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    //   <text y="23" font-family="Arial,sans-serif" font-weight="900" font-size="22" fill="currentColor">Rappi</text>
+    // </svg>`,
+  };
+
+  const btns = APPS
+    .filter(app => d[app.key]?.activo && d[app.key]?.url)
+    .map(app => {
+      const url = d[app.key].url;
+      return `<a class="delivery-btn ${app.cls}"
+           href="${url}"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Ordenar en ${app.label}">
+          ${LOGOS[app.key]}
+        </a>`;
+    })
+    .join('');
+
+  wrap.innerHTML = btns;
+  wrap.style.display = btns ? 'flex' : 'none';
 }
 
 /* ── Branch Switcher ────────────────────────────────────────────── */

@@ -37,8 +37,6 @@
   }
   </script>
 
-  <link rel="icon" type="image/jpeg" href="img/mainlogo.jpeg">
-
   <link rel="canonical" href="https://www.lostocayos.mx/" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -55,7 +53,12 @@
         crossorigin="anonymous" />
 
   <link rel="stylesheet" href="styles.css" />
+  <!-- Nuevas funciones: platos, descargas, Del Corral palette, CTA fix -->
+  <!-- Pega el contenido de styles-extras.css al final de styles.css
+       o mantén este enlace separado. Ambas opciones funcionan. -->
+  <link rel="stylesheet" href="styles-extras.css" />
 
+  <!-- <link rel="icon" type="image/png" href="img/favicon.png" /> -->
 </head>
 
 <body>
@@ -141,6 +144,10 @@
 
       <div class="hero-overlay" aria-hidden="true"></div>
 
+      <!-- Botones de apps de entrega — esquina superior derecha del hero
+           Inyectados dinámicamente por app.js → _renderDeliveryBtns() -->
+      <div id="hero-delivery" class="hero-delivery" aria-label="Pedir en apps de entrega" style="display:none;"></div>
+
       <div class="hero-content">
         <p class="hero-eyebrow" aria-hidden="true">LOS ORIGINALES DESDE 2010</p>
 
@@ -190,12 +197,12 @@
         </div>
       </div>
 
-      <div class="scroll-indicator" aria-hidden="true">
+      <!-- <div class="scroll-indicator" aria-hidden="true">
         <span>scroll</span>
         <div class="scroll-arrow-wrap">
           <div class="scroll-arrow"></div>
         </div>
-      </div>
+      </div> -->
     </section>
 
     <!-- ══════════════════════════════════════════════════════════

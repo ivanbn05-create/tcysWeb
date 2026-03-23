@@ -84,16 +84,34 @@ const PROMOCIONES_DATA = {
 
   /* ── Las Águilas ────────────────────────────────────────────── */
   aguilas: {
-    0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null,
+    0: null, 
+    1: null, 
+    2: [PROMOS_BASE.promoLonche, PROMOS_BASE.promoTacos], 
+    3: [PROMOS_BASE.promoLonche, PROMOS_BASE.promoTacos],
+    4: PROMOS_BASE.promoAgua,
+    5: null, 
+    6: null,
   },
 
   /* ── La Estancia ────────────────────────────────────────────── */
   estancia: {
-    0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null,
+    0: null, 
+    1: null, 
+    2: null, 
+    3: [PROMOS_BASE.promoLonche, PROMOS_BASE.promoTacos],
+    4: [PROMOS_BASE.promoLonche, PROMOS_BASE.promoTacos],
+    5: null,
+    6: null,
   },
 
   /* ── Zona Centro Médico ─────────────────────────────────────── */
   centromedico: {
-    0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null,
+     0: null,
+    1: PROMOS_BASE.promoAgua,
+    2: [PROMOS_BASE.promoLonche, PROMOS_BASE.promoTacos],
+    3: [PROMOS_BASE.promoLonche, PROMOS_BASE.promoTacos],
+    4: PROMOS_BASE.promoAgua,
+    5: PROMOS_BASE.promoBistek,
+    6: null,
   },
 };
